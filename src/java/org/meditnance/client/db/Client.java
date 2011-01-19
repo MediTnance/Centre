@@ -6,13 +6,9 @@
 package org.meditnance.client.db;
 
 // -- Table pour le client
-
-import java.util.HashSet;
-
 public class Client {
   Integer id;
   String lastName, firstName, address;
-  HashSet<Furniture> furnitures = new HashSet<Furniture>();
 
   public Client() {}
   public Client(Integer id, String firstName, String lastName) {
@@ -51,17 +47,5 @@ public class Client {
 
   public void setFirstName(String firstName) {
     this.firstName = firstName;
-  }
-
-  public void addFurniture(Furniture furniture) {
-    this.furnitures.add(furniture);
-  }
-
-  public HashSet<Furniture> getFurnitures() {
-    return this.furnitures;
-  }
-
-  public void removeFurniture(Furniture furniture) {
-    this.furnitures.remove(furniture);
   }
 }

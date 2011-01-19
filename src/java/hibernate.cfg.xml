@@ -3,8 +3,14 @@
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
-    <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
-    <property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost/</property>
-    <property name="hibernate.connection.username">SA</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/pa8</property>
+    <property name="hibernate.connection.username">root</property>
+    <!-- MAPPING //-->
+    <mapping resource="org/meditnance/client/db/employees.hbm.xml"/>
+    <mapping resource="org/meditnance/client/db/clients.hbm.xml"/>
+    <mapping resource="org/meditnance/client/db/furnitures.hbm.xml"/>
+    <mapping resource="org/meditnance/client/db/intervention.hbm.xml"/>
+    <mapping resource="org/meditnance/client/db/pieces.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

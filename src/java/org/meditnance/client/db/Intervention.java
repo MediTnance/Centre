@@ -9,20 +9,37 @@ package org.meditnance.client.db;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.HashSet;
 
 public class Intervention {
   private Time begin, end;
+
   private Date date;
 
   private Integer id, idEmployee, idClient;
-  private Integer cost;
-  private String annotations, nature; // Nature ??
+  private Integer cost, nature;
+  private String annotations;
 
   // -- Liaisons avec les autres tables
   private Client client;
   private Employee employee;
-  
+
+  // -- Natures possibles (a completer)
+  public static Integer N_MAINTENANCE = 0, N_REPAIR = 1;
+
+  public Intervention() {}
+
+  public Intervention(Integer id, Client client, Employee employee, Date date, Time begin, Time end, Integer cost, Integer nature, String annotations) {
+    this.begin = begin;
+    this.end = end;
+    this.date = date;
+    this.id = id;
+    this.cost = cost;
+    this.nature = nature;
+    this.annotations = annotations;
+    this.client = client;
+    this.employee = employee;
+  }
+
 
   public String getAnnotations() {
     return this.annotations;
@@ -88,11 +105,11 @@ public class Intervention {
     this.idEmployee = idEmployee;
   }
 
-  public String getNature() {
+  public Integer getNature() {
     return this.nature;
   }
 
-  public void setNature(String nature) {
+  public void setNature(Integer nature) {
     this.nature = nature;
   }
 

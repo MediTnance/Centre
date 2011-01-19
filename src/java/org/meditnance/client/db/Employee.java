@@ -9,12 +9,18 @@ import java.sql.Date;
 
 // -- Table Employés
 public class Employee {
-  private Integer id;
-  private String lastname, firstName, address, role, specialization;
+  private Integer id, role;
+  private String lastname, firstName, address, specialization;
   private Date birthDate;
 
+  // -- roles -- a completer
+  public static Integer
+    ADMIN = 0,
+    TECHNICIAN = 1,
+    PAWN = 2;
+
   public Employee() {}
-  public Employee(Integer id, String firstName, String lastName, String role) {
+  public Employee(Integer id, String firstName, String lastName, Integer role) {
     this.id = id;
     this.firstName = firstName;
     this.lastname = lastName;
@@ -45,11 +51,11 @@ public class Employee {
     this.firstName = firstName;
   }
 
-  public String getRole() {
+  public Integer getRole() {
     return this.role;
   }
 
-  public void setRole(String role) {
+  public void setRole(Integer role) {
     this.role = role;
   }
 

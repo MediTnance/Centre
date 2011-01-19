@@ -12,6 +12,15 @@ public class Piece {
 
   private Intervention intervention;
 
+  public Piece() {}
+  public Piece(Integer id, Intervention intervention, String provider, String reference) {
+    this.id = id;
+    this.intervention = intervention;
+    this.idIntervention = intervention.getId();
+    this.provider = provider;
+    this.reference = reference;
+  }
+
   public Integer getId() {
     return this.id;
   }

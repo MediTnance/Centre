@@ -10,13 +10,19 @@ package org.meditnance.client.db;
 import java.sql.Date;
 
 public class Furniture {
-  private Integer id, _clientId;
-  private String type, brand, ref;
+  private Integer id, _clientId, type, verification;
+  private String brand, ref;
   private Date lastIntervention;
+  
   private Client client;
 
-  //TODO
-  // -- delaiVerif ?? Format ? Creation d'une nouvelle structure... ?
+  public Integer getVerification() {
+    return verification;
+  }
+
+  public void setVerification(Integer verification) {
+    this.verification = verification;
+  }
 
   public Furniture() {}
 
@@ -57,11 +63,11 @@ public class Furniture {
     this.ref = ref;
   }
 
-  public String getType() {
+  public Integer getType() {
     return this.type;
   }
 
-  public void setType(String type) {
+  public void setType(Integer type) {
     this.type = type;
   }
 
@@ -71,7 +77,6 @@ public class Furniture {
 
   public void setClient(Client client) {
     this.client = client;
-    this.client.addFurniture(this);
     this._clientId = client.getId();
   }
 
