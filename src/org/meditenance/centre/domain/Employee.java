@@ -5,8 +5,8 @@
 
 package org.meditenance.centre.domain;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 // -- Table Employés
@@ -16,12 +16,6 @@ public class Employee extends MeditnanceDomain {
   private Date birthDate;
 
   private List<Intervention> interventions = null;
-
-  // -- roles -- a completer
-  public static Integer
-    ADMIN = 0,
-    TECHNICIAN = 1,
-    PAWN = 2;
 
   public Employee() {}
 
@@ -105,6 +99,8 @@ public class Employee extends MeditnanceDomain {
 
   @Override
   public String toString() {
-    return this.firstName + " " + this.lastName + " (" + this.specialization + ")";
+    String roles[] = {"Administrateur", "Technicien", "Opérateur"};
+
+    return this.firstName + " " + this.lastName + " (" + roles[this.role] + ")";
   }
 }

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="org.meditnance.client.domain">
+<hibernate-mapping>
   <class name="org.meditenance.centre.domain.Employee" table="employees">
-    <id column="id" name="id" type="integer" unsaved-value="null"/>
-    <property name="birthDate" type="date"/>
-    <property name="role" type="integer"/>
+    <id name="id" type="integer">
+      <generator class="native" />
+    </id>
+
+    <property name="birthDate" type="date" not-null="false" />
+    <property name="role" type="integer" />
     <property name="firstName" type="string"/>
     <property name="lastName" type="string"/>
-    <property name="address" type="string"/>
-    <property column="specialization" name="specialization" type="string"/>
+    <property name="address" type="string" not-null="false" />
+    <property name="specialization" type="string" not-null="false" />
   </class>
 </hibernate-mapping>

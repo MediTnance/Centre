@@ -2,12 +2,16 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class name="org.meditenance.centre.domain.Intervention" table="interventions">
-    <id column="id" name="id" type="integer"/>
+    <id name="id" type="integer">
+      <generator class="native" />
+    </id>
+
     <property name="cost" type="integer"/>
     <property name="nature" type="integer"/>
     <property name="begin" type="date"/>
-    <property name="end" type="date"/>
+    <property name="end" type="date" not-null="false" />
     <property name="annotations" type="string"/>
+    
     <many-to-one class="org.meditenance.centre.domain.Client" name="client"/>
     <many-to-one class="org.meditenance.centre.domain.Employee" name="employee"/>
   </class>
