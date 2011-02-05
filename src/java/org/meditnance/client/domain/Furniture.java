@@ -3,18 +3,16 @@
  * and open the template in the editor.
  */
 
-package org.meditnance.client.db;
+package org.meditnance.client.domain;
 
 // -- Table Materiel
 
-import java.sql.Date;
-
-public class Furniture {
-  private Integer id, _clientId, type, verification;
+public class Furniture extends MeditnanceDomain {
+  private Integer type, verification;
   private String brand, ref;
-  private Date lastIntervention;
   
-  private Client client;
+  private Intervention lastIntervention = null;
+  private Client client = null;
 
   public Integer getVerification() {
     return verification;
@@ -22,13 +20,6 @@ public class Furniture {
 
   public void setVerification(Integer verification) {
     this.verification = verification;
-  }
-
-  public Furniture() {}
-
-  public Furniture(Integer id, Client client) {
-    this.id = id;
-    this.client = client;
   }
 
   public String getBrand() {
@@ -39,20 +30,17 @@ public class Furniture {
     this.brand = brand;
   }
 
-  public Integer getId() {
-    return this.id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public Date getLastIntervention() {
+  public Intervention getLastIntervention() {
     return this.lastIntervention;
   }
 
-  public void setLastIntervention(Date lastIntervention) {
+  public void setLastIntervention(Intervention lastIntervention) {
+    if (this.lastIntervention != null) {
+      this.lastIntervention.removeFurniture(this);
+    }
+
     this.lastIntervention = lastIntervention;
+    this.lastIntervention.addFurniture(this);
   }
 
   public String getRef() {
@@ -76,15 +64,11 @@ public class Furniture {
   }
 
   public void setClient(Client client) {
+    if (this.client != null) {
+      this.client.removeFurniture(this);
+    }
+
     this.client = client;
-    this._clientId = client.getId();
-  }
-
-  private Integer getClientId() {
-    return this._clientId;
-  }
-
-  private void setClientId(Integer _clientId) {
-    this._clientId = _clientId;
+    this.client.addFurniture(this);
   }
 }

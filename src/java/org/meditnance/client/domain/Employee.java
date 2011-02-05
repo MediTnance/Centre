@@ -3,15 +3,19 @@
  * and open the template in the editor.
  */
 
-package org.meditnance.client.db;
+package org.meditnance.client.domain;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 // -- Table Employés
-public class Employee {
-  private Integer id, role;
+public class Employee extends MeditnanceDomain {
+  private Integer role;
   private String lastname, firstName, address, specialization;
   private Date birthDate;
+
+  private List<Intervention> interventions = null;
 
   // -- roles -- a completer
   public static Integer
@@ -19,12 +23,34 @@ public class Employee {
     TECHNICIAN = 1,
     PAWN = 2;
 
-  public Employee() {}
-  public Employee(Integer id, String firstName, String lastName, Integer role) {
-    this.id = id;
+  public Employee(String firstName, String lastName, Integer role) {
     this.firstName = firstName;
     this.lastname = lastName;
     this.role = role;
+  }
+
+  public List<Intervention> getInterventions() {
+    return interventions;
+  }
+
+  public void setInterventions(List<Intervention> interventions) {
+    this.interventions = interventions;
+  }
+
+  public void addIntervention(Intervention i) {
+    if (this.interventions == null) {
+      this.interventions = new ArrayList<Intervention>();
+    }
+
+    this.interventions.add(i);
+  }
+
+  public void removeIntervention(Intervention i) {
+    if (this.interventions == null) {
+      return;
+    }
+
+    this.interventions.remove(i);
   }
 
   public String getAddress() {
@@ -57,14 +83,6 @@ public class Employee {
 
   public void setRole(Integer role) {
     this.role = role;
-  }
-
-  public Integer getId() {
-    return this.id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
   }
 
   public String getLastname() {

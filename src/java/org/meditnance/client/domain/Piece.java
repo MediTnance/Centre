@@ -3,30 +3,20 @@
  * and open the template in the editor.
  */
 
-package org.meditnance.client.db;
+package org.meditnance.client.domain;
 
-// -- Représentation d'une pièce d'un matiériel dans la base de données
-public class Piece {
-  Integer id, idIntervention;
+// -- Représentation d'une pièce d'un matériel dans la base de données
+public class Piece extends MeditnanceDomain {
   String provider, reference;
 
   private Intervention intervention;
 
-  public Piece() {}
-  public Piece(Integer id, Intervention intervention, String provider, String reference) {
-    this.id = id;
+  public Piece(Intervention intervention, String provider, String reference) {
     this.intervention = intervention;
-    this.idIntervention = intervention.getId();
     this.provider = provider;
     this.reference = reference;
-  }
 
-  public Integer getId() {
-    return this.id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
+    this.intervention.addPiece(this);
   }
 
   public String getProvider() {
@@ -45,17 +35,13 @@ public class Piece {
     this.reference = reference;
   }
 
-  public Integer getIdIntervention() {
-    return idIntervention;
-  }
-
-  public void setIdIntervention(Integer idIntervention) {
-    this.idIntervention = idIntervention;
-  }
-
   public void setIntervention(Intervention intervention) {
+    if (this.intervention != null) {
+      this.intervention.removePiece(this);
+    }
+
     this.intervention = intervention;
-    this.idIntervention = intervention.getId();
+    this.intervention.addPiece(this);
   }
 
   public Intervention getIntervention() {
