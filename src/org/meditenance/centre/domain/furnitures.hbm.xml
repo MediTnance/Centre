@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="org.meditenance.centre.domain.Furniture" table="furnitures">
+    <id column="id" name="id" type="integer"/>
+    <property name="type" type="integer"/>
+    <property name="verification" type="integer"/>
+    <property name="brand" type="string"/>
+    <property name="ref" type="string"/>
+    <property name="lastIntervention" type="date"/>
+
+    <many-to-one class="org.meditenance.centre.domain.Client" column="client_id" name="client"/>
+  </class>
+</hibernate-mapping>

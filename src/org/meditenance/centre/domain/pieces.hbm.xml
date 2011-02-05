@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="org.meditenance.centre.domain.Piece" table="pieces">
+    <id name="id" type="integer"/>
+    <property name="provider" type="string"/>
+    <property name="reference" type="string"/>
+    <many-to-one class="org.meditenance.centre.domain.Intervention" name="intervention"/>
+  </class>
+</hibernate-mapping>
