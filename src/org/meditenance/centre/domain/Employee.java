@@ -102,4 +102,9 @@ public class Employee extends MeditnanceDomain {
   public void setSpecialization(String specialization) {
     this.specialization = specialization;
   }
+
+  @Override
+  public String toString() {
+    return this.firstName + " " + this.lastName + " (" + this.specialization + ")";
+  }
 }

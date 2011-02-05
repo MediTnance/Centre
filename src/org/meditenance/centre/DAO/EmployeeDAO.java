@@ -18,7 +18,7 @@ import org.meditenance.centre.util.HibernateUtil;
 public class EmployeeDAO extends DAO<Employee> {
   @Override
   public Employee getById(Integer id) {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     Employee o = (Employee) s.get(Employee.class, id);
     s.getTransaction().commit();
@@ -29,7 +29,7 @@ public class EmployeeDAO extends DAO<Employee> {
 
   @Override
   public List<Employee> getAll() {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     List<Employee> l = s.createQuery("from Employee").list();
     s.getTransaction().commit();

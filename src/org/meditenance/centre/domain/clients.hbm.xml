@@ -2,10 +2,11 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class name="org.meditenance.centre.domain.Client" table="clients">
-    <id name="id"><generator class="native" /></id>
-
-    <property name="address" />
-    <property name="firstName" />
-    <property name="lastName" />
+    <id name="id">
+      <generator class="native"/>
+    </id>
+    <property name="address"/>
+    <property name="firstName"/>
+    <property name="lastName"/>
   </class>
 </hibernate-mapping>

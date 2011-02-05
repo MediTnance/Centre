@@ -20,7 +20,7 @@ public class InterventionDAO extends org.meditenance.centre.DAO.model.Interventi
 
   @Override
   public List<Intervention> getByEmployee(Employee e) {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     List<Intervention> l = s.createQuery("from Intervention where employee.id = " + e.getId()).list();
     s.getTransaction().commit();
@@ -31,7 +31,7 @@ public class InterventionDAO extends org.meditenance.centre.DAO.model.Interventi
 
   @Override
   public List<Intervention> getByClient(Client c) {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     List<Intervention> l = s.createQuery("from Furniture where client.id = " + c.getId()).list();
     s.getTransaction().commit();
@@ -42,7 +42,7 @@ public class InterventionDAO extends org.meditenance.centre.DAO.model.Interventi
 
   @Override
   public Intervention getById(Integer id) {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     Intervention i = (Intervention) s.get(Intervention.class, id);
     s.getTransaction().commit();
@@ -53,7 +53,7 @@ public class InterventionDAO extends org.meditenance.centre.DAO.model.Interventi
 
   @Override
   public List<Intervention> getAll() {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     List<Intervention> l = s.createQuery("from Intervention").list();
     s.getTransaction().commit();

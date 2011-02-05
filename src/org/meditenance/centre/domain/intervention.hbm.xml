@@ -8,7 +8,6 @@
     <property name="begin" type="date"/>
     <property name="end" type="date"/>
     <property name="annotations" type="string"/>
-    
     <many-to-one class="org.meditenance.centre.domain.Client" name="client"/>
     <many-to-one class="org.meditenance.centre.domain.Employee" name="employee"/>
   </class>

@@ -19,7 +19,7 @@ import org.meditenance.centre.util.HibernateUtil;
 public class FurnitureDAO extends org.meditenance.centre.DAO.model.FurnitureDAO {
   @Override
   public Furniture getByLastIntervention(Intervention i) {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     Furniture f = (Furniture) s.createQuery("from Furniture where lastIntervention.id = " + i.getId()).uniqueResult();
     s.getTransaction().commit();
@@ -30,7 +30,7 @@ public class FurnitureDAO extends org.meditenance.centre.DAO.model.FurnitureDAO 
 
   @Override
   public List<Furniture> getByClient(Client c) {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     List<Furniture> l = s.createQuery("from Furniture where client.id = " + c.getId()).list();
     s.getTransaction().commit();
@@ -41,7 +41,7 @@ public class FurnitureDAO extends org.meditenance.centre.DAO.model.FurnitureDAO 
 
   @Override
   public Furniture getById(Integer id) {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     Furniture f = (Furniture) s.get(Furniture.class, id);
     s.getTransaction().commit();
@@ -52,7 +52,7 @@ public class FurnitureDAO extends org.meditenance.centre.DAO.model.FurnitureDAO 
 
   @Override
   public List<Furniture> getAll() {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     List<Furniture> l = s.createQuery("from Furniture").list();
     s.getTransaction().commit();

@@ -18,7 +18,7 @@ import org.meditenance.centre.util.HibernateUtil;
 public class ClientDAO extends DAO<Client> {
   @Override
   public Client getById(Integer id) {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     Client c = (Client) s.get(Client.class, id);
     s.getTransaction().commit();
@@ -29,12 +29,22 @@ public class ClientDAO extends DAO<Client> {
 
   @Override
   public List<Client> getAll() {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     List<Client> l = s.createQuery("from Client").list();
     s.getTransaction().commit();
     s.close();
 
     return l;
+  }
+
+  public Client getByName(String firstName, String lastName) {
+    Session s = HibernateUtil.getSessionFactory().openSession();
+    s.beginTransaction();
+    Client c = (Client) s.createQuery("from Client where firstName = " + firstName + " and lastName = " + lastName).uniqueResult();
+    s.getTransaction().commit();
+    s.close();
+
+    return c;
   }
 }

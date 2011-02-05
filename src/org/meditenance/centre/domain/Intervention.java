@@ -7,6 +7,7 @@ package org.meditenance.centre.domain;
 
 // -- Table des interventions
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -143,5 +144,18 @@ public class Intervention extends MeditnanceDomain {
     
     this.employee = employee;
     this.employee.addIntervention(this);
+  }
+
+  @Override
+  public String toString() {
+    DateFormat df = DateFormat.getDateInstance();
+
+    String str = "Intervention du " + df.format(this.begin);
+    
+    if (this.end != null) {
+      str += " au " + df.format(this.end);
+    }
+
+    return str;
   }
 }

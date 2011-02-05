@@ -73,4 +73,9 @@ public class Furniture extends MeditnanceDomain {
     this.client = client;
     this.client.addFurniture(this);
   }
+
+  @Override
+  public String toString() {
+    return this.brand + " : " + this.ref;
+  }
 }

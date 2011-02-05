@@ -37,8 +37,8 @@ public abstract class DAO<O> {
    *
    * @param o Objet à ajouter
    */
-  public void add(O o) {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+  public void save(O o) {
+    Session s = HibernateUtil.getSessionFactory().openSession();
     Transaction t = null;
 
     try {
@@ -60,7 +60,7 @@ public abstract class DAO<O> {
    * @param object Objet à supprimer
    */
   public void remove(O object) {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     Transaction t = null;
 
     try {

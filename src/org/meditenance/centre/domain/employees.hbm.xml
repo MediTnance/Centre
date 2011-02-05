@@ -8,7 +8,6 @@
     <property name="firstName" type="string"/>
     <property name="lastName" type="string"/>
     <property name="address" type="string"/>
-    
     <property column="specialization" name="specialization" type="string"/>
   </class>
 </hibernate-mapping>

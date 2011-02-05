@@ -8,7 +8,6 @@
     <property name="brand" type="string"/>
     <property name="ref" type="string"/>
     <property name="lastIntervention" type="date"/>
-
     <many-to-one class="org.meditenance.centre.domain.Client" column="client_id" name="client"/>
   </class>
 </hibernate-mapping>

@@ -49,4 +49,9 @@ public class Piece extends MeditnanceDomain {
   public Intervention getIntervention() {
     return this.intervention;
   }
+
+  @Override
+  public String toString() {
+    return "#" + this.reference;
+  }
 }

@@ -95,4 +95,9 @@ public class Client extends MeditnanceDomain {
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
+
+  @Override
+  public String toString() {
+    return this.firstName + " " + this.lastName;
+  }
 }
