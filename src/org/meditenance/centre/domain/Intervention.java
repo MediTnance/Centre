@@ -8,6 +8,7 @@ package org.meditenance.centre.domain;
 // -- Table des interventions
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,10 +23,6 @@ public class Intervention extends MeditnanceDomain {
   private Client client = null;
   private Employee employee = null;
   private List<Piece> pieces = null;
-  private List<Furniture> furnitures = null;
-
-  // -- Natures possibles (a completer)
-  public final static Integer N_MAINTENANCE = 0, N_REPAIR = 1;
 
   public Intervention() {}
 
@@ -49,35 +46,15 @@ public class Intervention extends MeditnanceDomain {
   }
 
   public void addPiece(Piece piece) {
+    if (this.pieces == null) this.pieces = new ArrayList<Piece>();
+
     this.pieces.add(piece);
   }
 
   public void removePiece(Piece p) {
+    if (this.pieces == null) return;
+
     this.pieces.remove(p);
-  }
-
-  public List<Furniture> getFurnitures() {
-    return this.furnitures;
-  }
-
-  public void setFurnitures(List<Furniture> f) {
-    this.furnitures = f;
-  }
-
-  public void addFurniture(Furniture f) {
-    if (this.furnitures == null) {
-      this.furnitures = new ArrayList<Furniture>();
-    }
-
-    this.furnitures.add(f);
-  }
-
-  public void removeFurniture(Furniture f) {
-    if (this.furnitures == null) {
-      return;
-    }
-
-    this.furnitures.remove(f);
   }
 
   public String getAnnotations() {
@@ -143,12 +120,15 @@ public class Intervention extends MeditnanceDomain {
     }
     
     this.employee = employee;
-    this.employee.addIntervention(this);
+
+    if (this.employee != null) {
+      this.employee.addIntervention(this);
+    }
   }
 
   @Override
   public String toString() {
-    DateFormat df = DateFormat.getDateInstance();
+    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
     String str = "Intervention du " + df.format(this.begin);
     

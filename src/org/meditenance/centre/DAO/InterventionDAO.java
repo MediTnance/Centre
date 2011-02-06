@@ -17,7 +17,6 @@ import org.meditenance.centre.util.HibernateUtil;
  * @author Talus
  */
 public class InterventionDAO extends org.meditenance.centre.DAO.model.InterventionDAO {
-
   @Override
   public List<Intervention> getByEmployee(Employee e) {
     Session s = HibernateUtil.getSessionFactory().openSession();
@@ -33,7 +32,7 @@ public class InterventionDAO extends org.meditenance.centre.DAO.model.Interventi
   public List<Intervention> getByClient(Client c) {
     Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
-    List<Intervention> l = s.createQuery("from Furniture where client.id = " + c.getId()).list();
+    List<Intervention> l = s.createQuery("from Intervention where client.id = " + c.getId()).list();
     s.getTransaction().commit();
     s.close();
 
@@ -56,6 +55,17 @@ public class InterventionDAO extends org.meditenance.centre.DAO.model.Interventi
     Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     List<Intervention> l = s.createQuery("from Intervention").list();
+    s.getTransaction().commit();
+    s.close();
+
+    return l;
+  }
+
+  @Override
+  public List<Intervention> getByClientAndEmployee(Client c, Employee e) {
+    Session s = HibernateUtil.getSessionFactory().openSession();
+    s.beginTransaction();
+    List<Intervention> l = s.createQuery("from Intervention where client.id = " + c.getId() + " and employee.id = " + e.getId()).list();
     s.getTransaction().commit();
     s.close();
 

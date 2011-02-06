@@ -17,4 +17,5 @@ import org.meditenance.centre.domain.Intervention;
 public abstract class InterventionDAO extends DAO<Intervention> {
   public abstract List<Intervention> getByEmployee(Employee e);
   public abstract List<Intervention> getByClient(Client c);
+  public abstract List<Intervention> getByClientAndEmployee(Client c, Employee e);
 }
