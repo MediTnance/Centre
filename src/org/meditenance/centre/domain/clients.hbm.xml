@@ -5,8 +5,7 @@
     <id name="id">
       <generator class="native"/>
     </id>
-    
-    <property name="address" not-null="false" />
+    <property name="address" not-null="false"/>
     <property name="firstName"/>
     <property name="lastName"/>
   </class>

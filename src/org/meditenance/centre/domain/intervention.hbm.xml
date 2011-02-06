@@ -3,16 +3,15 @@
 <hibernate-mapping>
   <class name="org.meditenance.centre.domain.Intervention" table="interventions">
     <id name="id" type="integer">
-      <generator class="native" />
+      <generator class="native"/>
     </id>
-
     <property name="cost" type="integer"/>
     <property name="nature" type="integer"/>
     <property name="begin" type="date"/>
-    <property name="end" type="date" not-null="false" />
+    <property name="end" not-null="false" type="date"/>
     <property name="annotations" type="string"/>
-    
-    <many-to-one class="org.meditenance.centre.domain.Client" name="client"/>
-    <many-to-one class="org.meditenance.centre.domain.Employee" name="employee"/>
+
+    <many-to-one class="org.meditenance.centre.domain.Client" name="client" cascade="all" />
+    <many-to-one class="org.meditenance.centre.domain.Employee" name="employee" cascade="all" />
   </class>
 </hibernate-mapping>

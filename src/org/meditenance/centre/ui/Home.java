@@ -14,6 +14,7 @@ package org.meditenance.centre.ui;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import org.meditenance.centre.DAO.ClientDAO;
 import org.meditenance.centre.DAO.EmployeeDAO;
@@ -23,6 +24,7 @@ import org.meditenance.centre.DAO.model.InterventionDAO;
 import org.meditenance.centre.DAO.model.PieceDAO;
 import org.meditenance.centre.domain.Client;
 import org.meditenance.centre.domain.Employee;
+import org.meditenance.centre.domain.Furniture;
 
 /**
  *
@@ -38,16 +40,22 @@ public class Home extends javax.swing.JFrame {
 
   /** Creates new form Home */
   public Home() {
+    DefaultComboBoxModel clientModel = new DefaultComboBoxModel(this.clientDAO.getAll().toArray());
+
     this.initComponents();
 
     this.clientsList.setModel(new DefaultListModel());
-    this.fillClientList(this.clientDAO.getAll());
+    this.fillList(this.clientDAO.getAll(), this.clientsList);
     
     this.employeesList.setModel(new DefaultListModel());
+    this.fillList(this.employeeDAO.getAll(), this.employeesList);
     this.employeeRole.setModel(new DefaultComboBoxModel(Role.values()));
     this.employeeRole.setSelectedIndex(-1);
-    
-    this.fillEmployeeList(this.employeeDAO.getAll());
+
+    this.furnituresList.setModel(new DefaultListModel());
+    this.fillList(this.furnitureDAO.getAll(), this.furnituresList);
+    this.furnitureClient.setModel(clientModel);
+    this.furnitureClient.setSelectedIndex(-1);
   }
 
   /** This method is called from within the constructor to
@@ -59,7 +67,7 @@ public class Home extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
-    TabbedPane = new javax.swing.JTabbedPane();
+    PieceTab = new javax.swing.JTabbedPane();
     ClientTab = new javax.swing.JPanel();
     jLabel1 = new javax.swing.JLabel();
     jScrollPane1 = new javax.swing.JScrollPane();
@@ -75,6 +83,21 @@ public class Home extends javax.swing.JFrame {
     cancelClient = new javax.swing.JButton();
     clientSuppr = new javax.swing.JButton();
     FurnitureTab = new javax.swing.JPanel();
+    jLabel6 = new javax.swing.JLabel();
+    jScrollPane3 = new javax.swing.JScrollPane();
+    furnituresList = new javax.swing.JList();
+    furnitureAction = new javax.swing.JLabel();
+    jLabel14 = new javax.swing.JLabel();
+    jLabel15 = new javax.swing.JLabel();
+    jLabel16 = new javax.swing.JLabel();
+    jLabel17 = new javax.swing.JLabel();
+    furnitureRef = new javax.swing.JTextField();
+    furnitureBrand = new javax.swing.JTextField();
+    furnitureClient = new javax.swing.JComboBox();
+    furnitureLastIntervention = new com.toedter.calendar.JDateChooser();
+    furnitureButton = new javax.swing.JButton();
+    furnitureCancel = new javax.swing.JButton();
+    furnitureSuppr = new javax.swing.JButton();
     EmployeeTab = new javax.swing.JPanel();
     jLabel2 = new javax.swing.JLabel();
     jScrollPane2 = new javax.swing.JScrollPane();
@@ -96,13 +119,14 @@ public class Home extends javax.swing.JFrame {
     employeeName = new javax.swing.JTextField();
     employeeFirstName = new javax.swing.JTextField();
     InterventionTab = new javax.swing.JPanel();
+    jPanel1 = new javax.swing.JPanel();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new java.awt.Dimension(503, 458));
     setName("UI"); // NOI18N
     setResizable(false);
 
-    TabbedPane.setName("TabbedPane"); // NOI18N
+    PieceTab.setName("PieceTab"); // NOI18N
 
     ClientTab.setMinimumSize(new java.awt.Dimension(498, 430));
     ClientTab.setName("ClientTab"); // NOI18N
@@ -230,22 +254,150 @@ public class Home extends javax.swing.JFrame {
         .addGap(174, 174, 174))
     );
 
-    TabbedPane.addTab("Clients", ClientTab);
+    PieceTab.addTab("Clients", ClientTab);
 
     FurnitureTab.setName("FurnitureTab"); // NOI18N
+
+    jLabel6.setText("Liste du Matériel");
+    jLabel6.setName("jLabel6"); // NOI18N
+
+    jScrollPane3.setName("jScrollPane3"); // NOI18N
+
+    furnituresList.setModel(new javax.swing.AbstractListModel() {
+      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+      public int getSize() { return strings.length; }
+      public Object getElementAt(int i) { return strings[i]; }
+    });
+    furnituresList.setName("furnituresList"); // NOI18N
+    furnituresList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+      public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+        furnituresListValueChanged(evt);
+      }
+    });
+    jScrollPane3.setViewportView(furnituresList);
+
+    furnitureAction.setText("Ajout d'un matériel");
+    furnitureAction.setName("furnitureAction"); // NOI18N
+
+    jLabel14.setText("Référence");
+    jLabel14.setName("jLabel14"); // NOI18N
+
+    jLabel15.setText("Marque");
+    jLabel15.setName("jLabel15"); // NOI18N
+
+    jLabel16.setText("Client");
+    jLabel16.setName("jLabel16"); // NOI18N
+
+    jLabel17.setText("Dernière Intervention");
+    jLabel17.setName("jLabel17"); // NOI18N
+
+    furnitureRef.setName("furnitureRef"); // NOI18N
+
+    furnitureBrand.setName("furnitureBrand"); // NOI18N
+
+    furnitureClient.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+    furnitureClient.setName("furnitureClient"); // NOI18N
+
+    furnitureLastIntervention.setDateFormatString("dd/MM/yyyy");
+    furnitureLastIntervention.setName("furnitureLastIntervention"); // NOI18N
+
+    furnitureButton.setText("Ajouter");
+    furnitureButton.setName("furnitureButton"); // NOI18N
+    furnitureButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        furnitureButtonActionPerformed(evt);
+      }
+    });
+
+    furnitureCancel.setText("Annuler");
+    furnitureCancel.setName("furnitureCancel"); // NOI18N
+    furnitureCancel.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        furnitureCancelActionPerformed(evt);
+      }
+    });
+
+    furnitureSuppr.setText("Supprimer");
+    furnitureSuppr.setEnabled(false);
+    furnitureSuppr.setName("furnitureSuppr"); // NOI18N
+    furnitureSuppr.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        furnitureSupprActionPerformed(evt);
+      }
+    });
 
     javax.swing.GroupLayout FurnitureTabLayout = new javax.swing.GroupLayout(FurnitureTab);
     FurnitureTab.setLayout(FurnitureTabLayout);
     FurnitureTabLayout.setHorizontalGroup(
       FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 498, Short.MAX_VALUE)
+      .addGroup(FurnitureTabLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(FurnitureTabLayout.createSequentialGroup()
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(29, 29, 29)
+            .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(FurnitureTabLayout.createSequentialGroup()
+                .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(jLabel14)
+                  .addComponent(jLabel15)
+                  .addComponent(jLabel16)
+                  .addComponent(jLabel17))
+                .addGap(28, 28, 28)
+                .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                  .addComponent(furnitureLastIntervention, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                  .addComponent(furnitureClient, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                  .addComponent(furnitureBrand)
+                  .addComponent(furnitureRef, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)))
+              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FurnitureTabLayout.createSequentialGroup()
+                .addComponent(furnitureCancel)
+                .addGap(18, 18, 18)
+                .addComponent(furnitureSuppr)
+                .addGap(18, 18, 18)
+                .addComponent(furnitureButton)
+                .addGap(8, 8, 8))))
+          .addGroup(FurnitureTabLayout.createSequentialGroup()
+            .addComponent(jLabel6)
+            .addGap(103, 103, 103)
+            .addComponent(furnitureAction)))
+        .addContainerGap())
     );
     FurnitureTabLayout.setVerticalGroup(
       FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 430, Short.MAX_VALUE)
+      .addGroup(FurnitureTabLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel6)
+          .addComponent(furnitureAction))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addGroup(FurnitureTabLayout.createSequentialGroup()
+            .addGap(8, 8, 8)
+            .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel14)
+              .addComponent(furnitureRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(27, 27, 27)
+            .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel15)
+              .addComponent(furnitureBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(18, 18, 18)
+            .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel16)
+              .addComponent(furnitureClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(29, 29, 29)
+            .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(furnitureLastIntervention, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(jLabel17))
+            .addGap(42, 42, 42)
+            .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(furnitureCancel)
+              .addComponent(furnitureButton)
+              .addComponent(furnitureSuppr))))
+        .addContainerGap(130, Short.MAX_VALUE))
     );
 
-    TabbedPane.addTab("Matériel", FurnitureTab);
+    PieceTab.addTab("Matériel", FurnitureTab);
 
     EmployeeTab.setName("EmployeeTab"); // NOI18N
 
@@ -409,7 +561,7 @@ public class Home extends javax.swing.JFrame {
         .addContainerGap(121, Short.MAX_VALUE))
     );
 
-    TabbedPane.addTab("Employés", EmployeeTab);
+    PieceTab.addTab("Employés", EmployeeTab);
 
     InterventionTab.setName("InterventionTab"); // NOI18N
 
@@ -424,19 +576,34 @@ public class Home extends javax.swing.JFrame {
       .addGap(0, 430, Short.MAX_VALUE)
     );
 
-    TabbedPane.addTab("Interventions", InterventionTab);
+    PieceTab.addTab("Interventions", InterventionTab);
 
-    TabbedPane.setSelectedComponent(ClientTab);
+    jPanel1.setName("jPanel1"); // NOI18N
+
+    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+    jPanel1.setLayout(jPanel1Layout);
+    jPanel1Layout.setHorizontalGroup(
+      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 498, Short.MAX_VALUE)
+    );
+    jPanel1Layout.setVerticalGroup(
+      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 430, Short.MAX_VALUE)
+    );
+
+    PieceTab.addTab("Pièces", jPanel1);
+
+    PieceTab.setSelectedComponent(ClientTab);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(TabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+      .addComponent(PieceTab, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addComponent(TabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+      .addComponent(PieceTab, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
     );
 
     pack();
@@ -462,7 +629,11 @@ public class Home extends javax.swing.JFrame {
 
     this.clientDAO.save(cli);
     this.clearClientSelection();
-    this.fillClientList(this.clientDAO.getAll());
+    this.fillList(this.clientDAO.getAll(), this.clientsList);
+
+    if (!this.clientSuppr.isEnabled()) {
+      ((DefaultComboBoxModel) this.furnitureClient.getModel()).addElement(cli);
+    }
 
     return;
 }//GEN-LAST:event_clientButtonActionPerformed
@@ -488,7 +659,8 @@ public class Home extends javax.swing.JFrame {
     if (emp != null && JOptionPane.showConfirmDialog(this, "Voulez vous vraiment supprimer l'employé " + emp + " ?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
       this.employeeDAO.remove(emp);
       this.clearEmployeeSelection();
-      this.fillEmployeeList(this.employeeDAO.getAll());
+      
+      ((DefaultListModel) this.employeesList.getModel()).removeElement(emp);
     }
   }//GEN-LAST:event_employeeSupprActionPerformed
 
@@ -498,7 +670,9 @@ public class Home extends javax.swing.JFrame {
     if (cli != null && JOptionPane.showConfirmDialog(this, "Voulez vous vraiment supprimer le client " + cli + " ?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
       this.clientDAO.remove(cli);
       this.clearClientSelection();
-      this.fillClientList(this.clientDAO.getAll());
+      
+      ((DefaultListModel) this.clientsList.getModel()).removeElement(cli);
+      ((DefaultComboBoxModel) this.furnitureClient.getModel()).removeElement(cli);
     }
   }//GEN-LAST:event_clientSupprActionPerformed
 
@@ -542,10 +716,63 @@ public class Home extends javax.swing.JFrame {
 
     this.employeeDAO.save(emp);
     this.clearEmployeeSelection();
-    this.fillEmployeeList(this.employeeDAO.getAll());
+    this.fillList(this.employeeDAO.getAll(), this.employeesList);
 
     return;
   }//GEN-LAST:event_employeeButtonActionPerformed
+
+  private void furnituresListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_furnituresListValueChanged
+    Furniture f = (Furniture) this.furnituresList.getSelectedValue();
+
+    if (f != null) {
+      this.furnitureSuppr.setEnabled(true);
+
+      this.furnitureBrand.setText(f.getBrand());
+      ((DefaultComboBoxModel) this.furnitureClient.getModel()).setSelectedItem(f.getClient());
+      this.furnitureRef.setText(f.getRef());
+      this.furnitureLastIntervention.setDate(f.getLastIntervention());
+      
+      this.furnitureAction.setText("Edition du matériel n°" + f.getId());
+      this.furnitureButton.setText("Editer");
+    }
+  }//GEN-LAST:event_furnituresListValueChanged
+
+  private void furnitureCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_furnitureCancelActionPerformed
+    this.clearFurnitureSelection();
+  }//GEN-LAST:event_furnitureCancelActionPerformed
+
+  private void furnitureSupprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_furnitureSupprActionPerformed
+    Furniture fur = (Furniture) this.furnituresList.getSelectedValue();
+
+    if (fur != null && JOptionPane.showConfirmDialog(this, "Voulez vous vraiment supprimer le matériel " + fur + " ?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+      this.furnitureDAO.remove(fur);
+      this.clearFurnitureSelection();
+
+      ((DefaultListModel) this.furnituresList.getModel()).removeElement(fur);
+    }
+  }//GEN-LAST:event_furnitureSupprActionPerformed
+
+  private void furnitureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_furnitureButtonActionPerformed
+    Furniture fur = null;
+
+    if (this.furnitureRef.getText().isEmpty() || this.furnitureBrand.getText().isEmpty() || this.furnitureClient.getSelectedIndex() == -1) {
+      JOptionPane.showMessageDialog(this, "Les champs pour la marque, la référence et le client pour ce matériel sont obligatoires", "Erreur", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+
+    fur = this.furnitureSuppr.isEnabled() ? (Furniture) this.furnituresList.getSelectedValue() : new Furniture();
+
+    fur.setBrand(this.furnitureBrand.getText());
+    fur.setRef(this.furnitureRef.getText());
+    fur.setClient((Client) this.furnitureClient.getSelectedItem());
+    fur.setLastIntervention(this.furnitureLastIntervention.getDate());
+    //fur.setType(this.)
+    //fur
+
+    this.furnitureDAO.save(fur);
+    this.clearFurnitureSelection();
+    this.fillList(this.furnitureDAO.getAll(), this.furnituresList);
+  }//GEN-LAST:event_furnitureButtonActionPerformed
 
   private void clearClientSelection() {
     this.clientAddress.setText("");
@@ -574,21 +801,25 @@ public class Home extends javax.swing.JFrame {
     this.employeesList.clearSelection();
   }
 
-  private void fillClientList(List<Client> list) {
-    DefaultListModel model = (DefaultListModel) this.clientsList.getModel();
-    model.clear();
+  private void clearFurnitureSelection() {
+    this.furnitureBrand.setText("");
+    this.furnitureRef.setText("");
+    this.furnitureLastIntervention.setDate(null);
 
-    for (Client cli : list) {
-      model.addElement(cli);
-    }
+    this.furnitureAction.setText("Ajout d'un matériel");
+    this.furnitureButton.setText("Ajouter");
+    this.furnitureSuppr.setEnabled(false);
+
+    this.furnitureClient.setSelectedIndex(-1);
+    this.furnituresList.clearSelection();
   }
 
-  private void fillEmployeeList(List<Employee> list) {
-    DefaultListModel model = (DefaultListModel) this.employeesList.getModel();
+  private void fillList(List list, JList jlist) {
+    DefaultListModel model = (DefaultListModel) jlist.getModel();
     model.clear();
 
-    for (Employee emp : list) {
-      model.addElement(emp);
+    for (Object o : list) {
+      model.addElement(o);
     }
   }
 
@@ -608,7 +839,7 @@ public class Home extends javax.swing.JFrame {
   private javax.swing.JPanel EmployeeTab;
   private javax.swing.JPanel FurnitureTab;
   private javax.swing.JPanel InterventionTab;
-  private javax.swing.JTabbedPane TabbedPane;
+  private javax.swing.JTabbedPane PieceTab;
   private javax.swing.JButton cancelClient;
   private javax.swing.JLabel clientAction;
   private javax.swing.JTextField clientAddress;
@@ -628,19 +859,35 @@ public class Home extends javax.swing.JFrame {
   private javax.swing.JTextField employeeSpe;
   private javax.swing.JButton employeeSuppr;
   private javax.swing.JList employeesList;
+  private javax.swing.JLabel furnitureAction;
+  private javax.swing.JTextField furnitureBrand;
+  private javax.swing.JButton furnitureButton;
+  private javax.swing.JButton furnitureCancel;
+  private javax.swing.JComboBox furnitureClient;
+  private com.toedter.calendar.JDateChooser furnitureLastIntervention;
+  private javax.swing.JTextField furnitureRef;
+  private javax.swing.JButton furnitureSuppr;
+  private javax.swing.JList furnituresList;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel10;
   private javax.swing.JLabel jLabel11;
   private javax.swing.JLabel jLabel12;
+  private javax.swing.JLabel jLabel14;
+  private javax.swing.JLabel jLabel15;
+  private javax.swing.JLabel jLabel16;
+  private javax.swing.JLabel jLabel17;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
   private javax.swing.JLabel jLabel4;
   private javax.swing.JLabel jLabel5;
+  private javax.swing.JLabel jLabel6;
   private javax.swing.JLabel jLabel7;
   private javax.swing.JLabel jLabel8;
   private javax.swing.JLabel jLabel9;
+  private javax.swing.JPanel jPanel1;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JScrollPane jScrollPane2;
+  private javax.swing.JScrollPane jScrollPane3;
   // End of variables declaration//GEN-END:variables
 
 }

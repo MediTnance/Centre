@@ -3,12 +3,11 @@
 <hibernate-mapping>
   <class name="org.meditenance.centre.domain.Piece" table="pieces">
     <id name="id" type="integer">
-      <generator class="native" />
+      <generator class="native"/>
     </id>
-    
     <property name="provider" type="string"/>
     <property name="reference" type="string"/>
-    
-    <many-to-one class="org.meditenance.centre.domain.Intervention" name="intervention"/>
+
+    <many-to-one class="org.meditenance.centre.domain.Intervention" name="intervention" cascade="all" />
   </class>
 </hibernate-mapping>

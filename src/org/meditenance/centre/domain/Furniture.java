@@ -7,11 +7,14 @@ package org.meditenance.centre.domain;
 
 // -- Table Materiel
 
+import java.util.Date;
+
+
 public class Furniture extends MeditnanceDomain {
   private Integer type, verification;
   private String brand, ref;
   
-  private Intervention lastIntervention = null;
+  private Date lastIntervention = null;
   private Client client = null;
 
   public Furniture() {}
@@ -32,17 +35,12 @@ public class Furniture extends MeditnanceDomain {
     this.brand = brand;
   }
 
-  public Intervention getLastIntervention() {
+  public Date getLastIntervention() {
     return this.lastIntervention;
   }
 
-  public void setLastIntervention(Intervention lastIntervention) {
-    if (this.lastIntervention != null) {
-      this.lastIntervention.removeFurniture(this);
-    }
-
+  public void setLastIntervention(Date lastIntervention) {
     this.lastIntervention = lastIntervention;
-    this.lastIntervention.addFurniture(this);
   }
 
   public String getRef() {
@@ -76,6 +74,6 @@ public class Furniture extends MeditnanceDomain {
 
   @Override
   public String toString() {
-    return this.brand + " : " + this.ref;
+    return this.brand + " : " + this.ref + " (#" + this.getId() + ")";
   }
 }

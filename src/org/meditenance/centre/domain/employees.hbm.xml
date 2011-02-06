@@ -3,14 +3,13 @@
 <hibernate-mapping>
   <class name="org.meditenance.centre.domain.Employee" table="employees">
     <id name="id" type="integer">
-      <generator class="native" />
+      <generator class="native"/>
     </id>
-
-    <property name="birthDate" type="date" not-null="false" />
-    <property name="role" type="integer" />
+    <property name="birthDate" not-null="false" type="date"/>
+    <property name="role" type="integer"/>
     <property name="firstName" type="string"/>
     <property name="lastName" type="string"/>
-    <property name="address" type="string" not-null="false" />
-    <property name="specialization" type="string" not-null="false" />
+    <property name="address" not-null="false" type="string"/>
+    <property name="specialization" not-null="false" type="string"/>
   </class>
 </hibernate-mapping>
