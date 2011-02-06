@@ -43,7 +43,10 @@ public class Piece extends MeditnanceDomain {
     }
 
     this.intervention = intervention;
-    this.intervention.addPiece(this);
+
+    if (this.intervention != null) {
+      this.intervention.addPiece(this);
+    }
   }
 
   public Intervention getIntervention() {
@@ -52,6 +55,6 @@ public class Piece extends MeditnanceDomain {
 
   @Override
   public String toString() {
-    return "#" + this.reference;
+    return super.toString() + " : Pièce " + this.reference;
   }
 }

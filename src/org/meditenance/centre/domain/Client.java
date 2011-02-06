@@ -98,6 +98,6 @@ public class Client extends MeditnanceDomain {
 
   @Override
   public String toString() {
-    return this.firstName + " " + this.lastName;
+    return super.toString() + " : " + this.firstName + " " + this.lastName;
   }
 }

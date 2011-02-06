@@ -136,6 +136,6 @@ public class Intervention extends MeditnanceDomain {
       str += " au " + df.format(this.end);
     }
 
-    return str;
+    return super.toString() + " : " + str;
   }
 }

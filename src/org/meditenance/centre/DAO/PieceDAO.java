@@ -18,7 +18,7 @@ import org.meditenance.centre.util.HibernateUtil;
 public class PieceDAO extends org.meditenance.centre.DAO.model.PieceDAO {
   @Override
   public List<Piece> getByIntervention(Intervention i) {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     List<Piece> l = s.createQuery("from Piece where intervention.id = " + i.getId()).list();
     s.getTransaction().commit();
@@ -29,7 +29,7 @@ public class PieceDAO extends org.meditenance.centre.DAO.model.PieceDAO {
 
   @Override
   public Piece getById(Integer id) {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     Piece p = (Piece) s.get(Piece.class, id);
     s.getTransaction().commit();
@@ -40,7 +40,7 @@ public class PieceDAO extends org.meditenance.centre.DAO.model.PieceDAO {
 
   @Override
   public List<Piece> getAll() {
-    Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+    Session s = HibernateUtil.getSessionFactory().openSession();
     s.beginTransaction();
     List<Piece> l = s.createQuery("from Piece").list();
     s.getTransaction().commit();

@@ -99,8 +99,6 @@ public class Employee extends MeditnanceDomain {
 
   @Override
   public String toString() {
-    String roles[] = {"Administrateur", "Technicien", "Opérateur"};
-
-    return this.firstName + " " + this.lastName + " (" + roles[this.role] + ")";
+    return super.toString() + " : " + this.firstName + " " + this.lastName;
   }
 }

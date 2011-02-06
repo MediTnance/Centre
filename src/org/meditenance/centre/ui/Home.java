@@ -26,6 +26,7 @@ import org.meditenance.centre.domain.Client;
 import org.meditenance.centre.domain.Employee;
 import org.meditenance.centre.domain.Furniture;
 import org.meditenance.centre.domain.Intervention;
+import org.meditenance.centre.domain.Piece;
 
 /**
  *
@@ -41,17 +42,20 @@ public class Home extends javax.swing.JFrame {
 
   /** Creates new form Home */
   public Home() {
-    DefaultComboBoxModel clientModel = new DefaultComboBoxModel(this.clientDAO.getAll().toArray());
+    List<Client> lC = this.clientDAO.getAll();
+    List<Employee> lE = this.employeeDAO.getAll();
+    List<Intervention> lI = this.interventionDAO.getAll();
+    DefaultComboBoxModel clientModel = new DefaultComboBoxModel(lC.toArray());
 
     this.initComponents();
 
     // -- Clients
     this.clientsList.setModel(new DefaultListModel());
-    this.fillList(this.clientDAO.getAll(), this.clientsList);
+    this.fillList(lC, this.clientsList);
 
     // -- Employés
     this.employeesList.setModel(new DefaultListModel());
-    this.fillList(this.employeeDAO.getAll(), this.employeesList);
+    this.fillList(lE, this.employeesList);
     this.employeeRole.setModel(new DefaultComboBoxModel(Role.values()));
     this.employeeRole.setSelectedIndex(-1);
 
@@ -63,13 +67,19 @@ public class Home extends javax.swing.JFrame {
 
     // -- Interventions
     this.interventionsList.setModel(new DefaultListModel());
-    this.fillList(this.interventionDAO.getAll(), this.interventionsList);
+    this.fillList(lI, this.interventionsList);
     this.interventionClient.setModel(clientModel);
-    this.interventionEmployee.setModel(new DefaultComboBoxModel(this.employeeDAO.getAll().toArray()));
+    this.interventionEmployee.setModel(new DefaultComboBoxModel(lE.toArray()));
     this.interventionType.setModel(new DefaultComboBoxModel(Type.values()));
     this.interventionClient.setSelectedIndex(-1);
     this.interventionEmployee.setSelectedIndex(-1);
     this.interventionType.setSelectedIndex(-1);
+
+    // -- Pièces
+    this.piecesList.setModel(new DefaultListModel());
+    this.fillList(this.pieceDAO.getAll(), this.piecesList);
+    this.pieceIntervention.setModel(new DefaultComboBoxModel(lI.toArray()));
+    this.pieceIntervention.setSelectedIndex(-1);
 
   }
 
@@ -157,6 +167,19 @@ public class Home extends javax.swing.JFrame {
     interventionSuppr = new javax.swing.JButton();
     interventionBegin = new com.toedter.calendar.JDateChooser();
     jPanel1 = new javax.swing.JPanel();
+    jLabel25 = new javax.swing.JLabel();
+    jScrollPane6 = new javax.swing.JScrollPane();
+    piecesList = new javax.swing.JList();
+    pieceAction = new javax.swing.JLabel();
+    jLabel26 = new javax.swing.JLabel();
+    jLabel27 = new javax.swing.JLabel();
+    jLabel28 = new javax.swing.JLabel();
+    pieceIntervention = new javax.swing.JComboBox();
+    pieceProvider = new javax.swing.JTextField();
+    pieceRef = new javax.swing.JTextField();
+    pieceCancel = new javax.swing.JButton();
+    pieceSuppr = new javax.swing.JButton();
+    pieceButton = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new java.awt.Dimension(503, 458));
@@ -796,15 +819,128 @@ public class Home extends javax.swing.JFrame {
 
     jPanel1.setName("jPanel1"); // NOI18N
 
+    jLabel25.setText("Liste des Pièces");
+    jLabel25.setName("jLabel25"); // NOI18N
+
+    jScrollPane6.setName("jScrollPane6"); // NOI18N
+
+    piecesList.setModel(new javax.swing.AbstractListModel() {
+      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+      public int getSize() { return strings.length; }
+      public Object getElementAt(int i) { return strings[i]; }
+    });
+    piecesList.setName("piecesList"); // NOI18N
+    piecesList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+      public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+        piecesListValueChanged(evt);
+      }
+    });
+    jScrollPane6.setViewportView(piecesList);
+
+    pieceAction.setText("Ajout d'une pièce");
+    pieceAction.setName("pieceAction"); // NOI18N
+
+    jLabel26.setText("Référence");
+    jLabel26.setName("jLabel26"); // NOI18N
+
+    jLabel27.setText("Fournisseur");
+    jLabel27.setName("jLabel27"); // NOI18N
+
+    jLabel28.setText("Intervention");
+    jLabel28.setName("jLabel28"); // NOI18N
+
+    pieceIntervention.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+    pieceIntervention.setName("pieceIntervention"); // NOI18N
+
+    pieceProvider.setName("pieceProvider"); // NOI18N
+
+    pieceRef.setName("pieceRef"); // NOI18N
+
+    pieceCancel.setText("Annuler");
+    pieceCancel.setName("pieceCancel"); // NOI18N
+    pieceCancel.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        pieceCancelActionPerformed(evt);
+      }
+    });
+
+    pieceSuppr.setText("Supprimer");
+    pieceSuppr.setEnabled(false);
+    pieceSuppr.setName("pieceSuppr"); // NOI18N
+    pieceSuppr.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        pieceSupprActionPerformed(evt);
+      }
+    });
+
+    pieceButton.setText("Ajouter");
+    pieceButton.setName("pieceButton"); // NOI18N
+    pieceButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        pieceButtonActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 554, Short.MAX_VALUE)
+      .addGroup(jPanel1Layout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(jPanel1Layout.createSequentialGroup()
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(47, 47, 47)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jLabel28)
+              .addComponent(jLabel27)
+              .addComponent(jLabel26)
+              .addComponent(pieceCancel))
+            .addGap(45, 45, 45)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(pieceSuppr)
+                .addGap(36, 36, 36)
+                .addComponent(pieceButton))
+              .addComponent(pieceProvider, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+              .addComponent(pieceIntervention, 0, 196, Short.MAX_VALUE)
+              .addComponent(pieceRef, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)))
+          .addGroup(jPanel1Layout.createSequentialGroup()
+            .addComponent(jLabel25)
+            .addGap(121, 121, 121)
+            .addComponent(pieceAction)))
+        .addContainerGap())
     );
     jPanel1Layout.setVerticalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 451, Short.MAX_VALUE)
+      .addGroup(jPanel1Layout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel25)
+          .addComponent(pieceAction))
+        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGap(18, 18, 18)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGap(26, 26, 26)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel26)
+              .addComponent(pieceRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(36, 36, 36)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel27)
+              .addComponent(pieceProvider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(37, 37, 37)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel28)
+              .addComponent(pieceIntervention, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(58, 58, 58)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(pieceButton)
+              .addComponent(pieceSuppr)
+              .addComponent(pieceCancel))))
+        .addContainerGap(134, Short.MAX_VALUE))
     );
 
     PieceTab.addTab("Pièces", jPanel1);
@@ -1023,8 +1159,11 @@ public class Home extends javax.swing.JFrame {
       this.interventionBegin.setDate(i.getBegin());
       this.interventionEnd.setDate(i.getEnd());
       this.interventionCost.setText(i.getCost().toString());
+
       ((DefaultComboBoxModel) this.interventionClient.getModel()).setSelectedItem(i.getClient());
       ((DefaultComboBoxModel) this.interventionEmployee.getModel()).setSelectedItem(i.getEmployee());
+      this.interventionClient.setSelectedItem(i.getClient());
+      this.interventionEmployee.setSelectedItem(i.getEmployee());
       this.interventionType.setSelectedIndex(i.getNature());
 
       this.interventionAction.setText("Edition de l'intervention n°" + i.getId());
@@ -1035,7 +1174,7 @@ public class Home extends javax.swing.JFrame {
   private void interventionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interventionButtonActionPerformed
     Intervention intervention = null;
 
-    if (this.interventionBegin.getDate() == null || this.interventionType.getSelectedIndex() == -1 || this.interventionClient.getSelectedIndex() == -1) {
+    if (this.interventionBegin.getDate() == null || this.interventionType.getSelectedItem() == null || this.interventionClient.getSelectedItem() == null) {
       JOptionPane.showMessageDialog(this, "Les champs pour la date / heure de début, le type, et le client pour une intervention sont obligatoires", "Erreur", JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -1051,18 +1190,69 @@ public class Home extends javax.swing.JFrame {
     intervention.setCost(this.interventionCost.getText().isEmpty() ? 0 : Integer.parseInt(this.interventionCost.getText()));
     intervention.setBegin(this.interventionBegin.getDate());
     intervention.setEnd(this.interventionEnd.getDate());
-
-    if (this.interventionEmployee.getSelectedItem() != null) {
-      intervention.setEmployee((Employee) this.interventionEmployee.getSelectedItem());
-    }
-    
+    intervention.setEmployee((Employee) this.interventionEmployee.getSelectedItem());
     intervention.setClient((Client) this.interventionClient.getSelectedItem());
     intervention.setNature(this.interventionType.getSelectedIndex());
 
     this.interventionDAO.save(intervention);
+
+    List<Intervention> lI = this.interventionDAO.getAll();
+
+    this.pieceIntervention.setModel(new DefaultComboBoxModel(lI.toArray()));
+    this.fillList(lI, this.interventionsList);
     this.clearInterventionSelection();
-    this.fillList(this.interventionDAO.getAll(), this.interventionsList);
   }//GEN-LAST:event_interventionButtonActionPerformed
+
+  private void pieceCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pieceCancelActionPerformed
+    this.clearPieceSelection();
+  }//GEN-LAST:event_pieceCancelActionPerformed
+
+  private void pieceSupprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pieceSupprActionPerformed
+    Piece piece = (Piece) this.piecesList.getSelectedValue();
+
+    if (piece != null && JOptionPane.showConfirmDialog(this, "Voulez vous vraiment supprimer la pièce " + piece + " ?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+      this.pieceDAO.remove(piece);
+      this.clearPieceSelection();
+
+      ((DefaultListModel) this.piecesList.getModel()).removeElement(piece);
+    }
+  }//GEN-LAST:event_pieceSupprActionPerformed
+
+  private void piecesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_piecesListValueChanged
+    Piece p = (Piece) this.piecesList.getSelectedValue();
+
+    if (p != null) {
+      this.pieceProvider.setText(p.getProvider());
+      this.pieceRef.setText(p.getReference());
+      ((DefaultComboBoxModel) this.pieceIntervention.getModel()).setSelectedItem(p.getIntervention());
+
+      this.pieceAction.setText("Editer la pièce n°" + p.getId());
+      this.pieceButton.setText("Editer");
+      this.pieceSuppr.setEnabled(true);
+    }
+  }//GEN-LAST:event_piecesListValueChanged
+
+  private void pieceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pieceButtonActionPerformed
+    Piece p = new Piece();
+
+    // -- Tous les champs sont obligatoires
+    if (this.pieceRef.getText().isEmpty() || this.pieceProvider.getText().isEmpty() || this.pieceIntervention.getSelectedItem() == null) {
+      JOptionPane.showMessageDialog(this, "Tous les champs sont obligatoires...", "Erreur", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+
+    if (this.pieceSuppr.isEnabled()) {
+      p = (Piece) this.piecesList.getSelectedValue();
+    }
+
+    p.setIntervention((Intervention) this.pieceIntervention.getSelectedItem());
+    p.setProvider(this.pieceProvider.getText());
+    p.setReference(this.pieceRef.getText());
+
+    this.pieceDAO.save(p);
+    this.fillList(this.pieceDAO.getAll(), this.piecesList);
+    this.clearPieceSelection();
+  }//GEN-LAST:event_pieceButtonActionPerformed
 
   private void clearClientSelection() {
     this.clientAddress.setText("");
@@ -1121,6 +1311,18 @@ public class Home extends javax.swing.JFrame {
     this.interventionSuppr.setEnabled(false);
 
     this.interventionsList.clearSelection();
+  }
+
+  private void clearPieceSelection() {
+    this.pieceIntervention.setSelectedIndex(-1);
+    this.pieceProvider.setText("");
+    this.pieceRef.setText("");
+
+    this.pieceAction.setText("Ajout d'une pièce");
+    this.pieceButton.setText("Ajouter");
+    this.pieceSuppr.setEnabled(false);
+
+    this.piecesList.clearSelection();
   }
 
   private void fillList(List list, JList jlist) {
@@ -1215,6 +1417,10 @@ public class Home extends javax.swing.JFrame {
   private javax.swing.JLabel jLabel22;
   private javax.swing.JLabel jLabel23;
   private javax.swing.JLabel jLabel24;
+  private javax.swing.JLabel jLabel25;
+  private javax.swing.JLabel jLabel26;
+  private javax.swing.JLabel jLabel27;
+  private javax.swing.JLabel jLabel28;
   private javax.swing.JLabel jLabel3;
   private javax.swing.JLabel jLabel4;
   private javax.swing.JLabel jLabel5;
@@ -1228,6 +1434,15 @@ public class Home extends javax.swing.JFrame {
   private javax.swing.JScrollPane jScrollPane3;
   private javax.swing.JScrollPane jScrollPane4;
   private javax.swing.JScrollPane jScrollPane5;
+  private javax.swing.JScrollPane jScrollPane6;
+  private javax.swing.JLabel pieceAction;
+  private javax.swing.JButton pieceButton;
+  private javax.swing.JButton pieceCancel;
+  private javax.swing.JComboBox pieceIntervention;
+  private javax.swing.JTextField pieceProvider;
+  private javax.swing.JTextField pieceRef;
+  private javax.swing.JButton pieceSuppr;
+  private javax.swing.JList piecesList;
   // End of variables declaration//GEN-END:variables
 
 }
