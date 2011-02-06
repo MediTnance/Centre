@@ -234,32 +234,30 @@ public class Home extends javax.swing.JFrame {
           .addComponent(jLabel1)
           .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ClientTabLayout.createSequentialGroup()
-              .addGap(22, 22, 22)
-              .addComponent(clientAction))
-            .addGroup(ClientTabLayout.createSequentialGroup()
-              .addGap(18, 18, 18)
-              .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(ClientTabLayout.createSequentialGroup()
-                  .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                  .addGap(18, 18, 18)
-                  .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(clientFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                    .addComponent(clientLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                    .addComponent(clientAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)))
-                .addGroup(ClientTabLayout.createSequentialGroup()
-                  .addComponent(cancelClient)
-                  .addGap(31, 31, 31)
-                  .addComponent(clientSuppr)))
-              .addContainerGap()))
-          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ClientTabLayout.createSequentialGroup()
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(clientButton)
-            .addGap(21, 21, 21))))
+          .addGroup(ClientTabLayout.createSequentialGroup()
+            .addGap(22, 22, 22)
+            .addComponent(clientAction))
+          .addGroup(ClientTabLayout.createSequentialGroup()
+            .addGap(18, 18, 18)
+            .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(ClientTabLayout.createSequentialGroup()
+                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(jLabel3)
+                  .addComponent(jLabel4)
+                  .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(clientFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                  .addComponent(clientLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                  .addComponent(clientAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)))
+              .addGroup(ClientTabLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(cancelClient)
+                .addGap(46, 46, 46)
+                .addComponent(clientSuppr)
+                .addGap(30, 30, 30)
+                .addComponent(clientButton)))
+            .addContainerGap())))
     );
     ClientTabLayout.setVerticalGroup(
       ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,9 +282,9 @@ public class Home extends javax.swing.JFrame {
               .addComponent(clientAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(48, 48, 48)
             .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(clientButton)
               .addComponent(cancelClient)
-              .addComponent(clientSuppr)))
+              .addComponent(clientSuppr)
+              .addComponent(clientButton)))
           .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(195, 195, 195))
     );
@@ -371,8 +369,8 @@ public class Home extends javax.swing.JFrame {
         .addContainerGap()
         .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(FurnitureTabLayout.createSequentialGroup()
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(29, 29, 29)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
             .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addGroup(FurnitureTabLayout.createSequentialGroup()
                 .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -406,11 +404,9 @@ public class Home extends javax.swing.JFrame {
         .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel6)
           .addComponent(furnitureAction))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(FurnitureTabLayout.createSequentialGroup()
-            .addGap(8, 8, 8)
+            .addGap(19, 19, 19)
             .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
               .addComponent(jLabel14)
               .addComponent(furnitureRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -430,7 +426,10 @@ public class Home extends javax.swing.JFrame {
             .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
               .addComponent(furnitureCancel)
               .addComponent(furnitureButton)
-              .addComponent(furnitureSuppr))))
+              .addComponent(furnitureSuppr)))
+          .addGroup(FurnitureTabLayout.createSequentialGroup()
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(151, Short.MAX_VALUE))
     );
 
@@ -524,37 +523,37 @@ public class Home extends javax.swing.JFrame {
       .addGroup(EmployeeTabLayout.createSequentialGroup()
         .addContainerGap()
         .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jLabel2)
+          .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(EmployeeTabLayout.createSequentialGroup()
-            .addComponent(jLabel2)
-            .addGap(101, 101, 101)
-            .addComponent(employeeAction))
-          .addGroup(EmployeeTabLayout.createSequentialGroup()
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(40, 40, 40)
             .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jLabel11)
+              .addComponent(jLabel12)
+              .addComponent(jLabel10)
+              .addComponent(jLabel9)
+              .addComponent(jLabel7)
+              .addComponent(jLabel8)
               .addGroup(EmployeeTabLayout.createSequentialGroup()
-                .addComponent(employeeCancel)
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
+                .addComponent(employeeCancel)))
+            .addGap(21, 21, 21)
+            .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EmployeeTabLayout.createSequentialGroup()
+                .addGap(13, 13, 13)
                 .addComponent(employeeSuppr)
-                .addGap(18, 18, 18)
-                .addComponent(employeeButton))
-              .addGroup(EmployeeTabLayout.createSequentialGroup()
-                .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(jLabel12)
-                  .addComponent(jLabel11)
-                  .addComponent(jLabel10)
-                  .addComponent(jLabel9)
-                  .addComponent(jLabel8)
-                  .addComponent(jLabel7))
-                .addGap(18, 18, 18)
-                .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                  .addComponent(employeeFirstName)
-                  .addComponent(employeeName)
-                  .addComponent(employeeAddress)
-                  .addComponent(employeeRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                  .addComponent(employeeSpe)
-                  .addComponent(employeeBirthDate, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))))))
-        .addContainerGap(81, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(employeeButton)
+                .addGap(11, 11, 11))
+              .addComponent(employeeBirthDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+              .addComponent(employeeSpe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+              .addComponent(employeeRole, javax.swing.GroupLayout.Alignment.TRAILING, 0, 205, Short.MAX_VALUE)
+              .addComponent(employeeAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+              .addComponent(employeeName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+              .addComponent(employeeFirstName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)))
+          .addComponent(employeeAction))
+        .addContainerGap())
     );
     EmployeeTabLayout.setVerticalGroup(
       EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -564,38 +563,38 @@ public class Home extends javax.swing.JFrame {
           .addComponent(jLabel2)
           .addComponent(employeeAction))
         .addGap(18, 18, 18)
-        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(EmployeeTabLayout.createSequentialGroup()
             .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel7)
-              .addComponent(employeeFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addComponent(employeeFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(jLabel7))
             .addGap(18, 18, 18)
             .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel8)
-              .addComponent(employeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addComponent(employeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(jLabel8))
             .addGap(18, 18, 18)
             .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel9)
-              .addComponent(employeeAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addComponent(employeeAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(jLabel9))
             .addGap(18, 18, 18)
             .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel10)
-              .addComponent(employeeRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addComponent(employeeRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(jLabel10))
             .addGap(18, 18, 18)
             .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel11)
-              .addComponent(employeeSpe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addComponent(employeeSpe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(jLabel11))
             .addGap(18, 18, 18)
             .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addComponent(employeeBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(jLabel12))
             .addGap(33, 33, 33)
             .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(employeeButton)
               .addComponent(employeeCancel)
-              .addComponent(employeeSuppr)
-              .addComponent(employeeButton)))
-          .addComponent(jScrollPane2))
-        .addContainerGap(142, Short.MAX_VALUE))
+              .addComponent(employeeSuppr)))
+          .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
+        .addGap(142, 142, 142))
     );
 
     PieceTab.addTab("Employés", EmployeeTab);
@@ -831,26 +830,30 @@ public class Home extends javax.swing.JFrame {
 }//GEN-LAST:event_cancelClientActionPerformed
 
   private void clientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientButtonActionPerformed
-    Client cli = null;
+    Client cli = new Client();
 
     if (this.clientLastName.getText().isEmpty() || this.clientFirstName.getText().isEmpty()) {
       JOptionPane.showMessageDialog(this, "Les champs pour le nom et le prénom du client sont obligatoires", "Erreur", JOptionPane.ERROR_MESSAGE);
       return;
     }
 
-    cli = this.clientSuppr.isEnabled() ? (Client) this.clientsList.getSelectedValue() : new Client();
+    if (this.clientSuppr.isEnabled()) {
+      cli = (Client) this.clientsList.getSelectedValue();
+    }
 
     cli.setFirstName(this.clientFirstName.getText());
     cli.setLastName(this.clientLastName.getText());
     cli.setAddress(this.clientAddress.getText());
-
+    
     this.clientDAO.save(cli);
-    this.clearClientSelection();
-    this.fillList(this.clientDAO.getAll(), this.clientsList);
 
-    if (!this.clientSuppr.isEnabled()) {
-      ((DefaultComboBoxModel) this.furnitureClient.getModel()).addElement(cli);
-    }
+    List<Client> l = this.clientDAO.getAll();
+    DefaultComboBoxModel model = new DefaultComboBoxModel(l.toArray());
+
+    this.interventionClient.setModel(model);
+    this.furnitureClient.setModel(model);
+    this.fillList(l, this.clientsList);
+    this.clearClientSelection();
 
     return;
 }//GEN-LAST:event_clientButtonActionPerformed
@@ -915,14 +918,16 @@ public class Home extends javax.swing.JFrame {
   }//GEN-LAST:event_employeeCancelActionPerformed
 
   private void employeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeButtonActionPerformed
-    Employee emp = null;
+    Employee emp = new Employee();
 
     if (this.employeeName.getText().isEmpty() || this.employeeFirstName.getText().isEmpty() || this.employeeRole.getSelectedIndex() == -1) {
       JOptionPane.showMessageDialog(this, "Les champs pour le nom, le prénom et le rôle de l'employé sont obligatoires", "Erreur", JOptionPane.ERROR_MESSAGE);
       return;
     }
 
-    emp = this.employeeSuppr.isEnabled() ? (Employee) this.employeesList.getSelectedValue() : new Employee();
+    if (this.employeeSuppr.isEnabled()) {
+      emp = (Employee) this.employeesList.getSelectedValue();
+    }
 
     emp.setFirstName(this.employeeFirstName.getText());
     emp.setLastName(this.employeeName.getText());
@@ -932,8 +937,12 @@ public class Home extends javax.swing.JFrame {
     emp.setSpecialization(this.employeeSpe.getText());
 
     this.employeeDAO.save(emp);
+
+    List<Employee> l = this.employeeDAO.getAll();
+
+    this.interventionEmployee.setModel(new DefaultComboBoxModel(l.toArray()));
+    this.fillList(l, this.employeesList);
     this.clearEmployeeSelection();
-    this.fillList(this.employeeDAO.getAll(), this.employeesList);
 
     return;
   }//GEN-LAST:event_employeeButtonActionPerformed
