@@ -7,8 +7,8 @@
     </id>
     <property name="cost" type="integer"/>
     <property name="nature" type="integer"/>
-    <property name="begin" type="date"/>
-    <property name="end" not-null="false" type="date"/>
+    <property name="begin" type="string"/>
+    <property name="end" not-null="false" type="string"/>
     <property name="annotations" type="string"/>
 
     <many-to-one class="org.meditenance.centre.domain.Client" name="client" cascade="all" />

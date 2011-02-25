@@ -5,6 +5,8 @@
 
 package org.meditenance.centre.DAO;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 import org.meditenance.centre.domain.Client;
@@ -71,4 +73,17 @@ public class InterventionDAO extends org.meditenance.centre.DAO.model.Interventi
 
     return l;
   }
+
+    @Override
+    public List<Intervention> getByDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String t1 = dateFormat.format(date);
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        s.beginTransaction();
+        List<Intervention> l = s.createQuery("from Intervention where begin like '" + t1 + "%'").list();
+        s.getTransaction().commit();
+        s.close();
+
+        return l;
+    }
 }

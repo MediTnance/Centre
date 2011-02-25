@@ -7,14 +7,11 @@ package org.meditenance.centre.domain;
 
 // -- Table des interventions
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Intervention extends MeditnanceDomain {
-  private Date begin, end;
+  private String begin, end;
 
   private Integer cost, nature;
   private String annotations;
@@ -27,7 +24,7 @@ public class Intervention extends MeditnanceDomain {
   public Intervention() {}
 
   public Intervention(Client client, Employee employee, Integer cost, Integer nature, String annotations) {
-    this.begin = new Date();
+//    this.begin = new Date();
     this.cost = cost;
     this.nature = nature;
     this.annotations = annotations;
@@ -65,11 +62,11 @@ public class Intervention extends MeditnanceDomain {
     this.annotations = annotations;
   }
 
-  public Date getBegin() {
+  public String getBegin() {
     return this.begin;
   }
 
-  public void setBegin(Date begin) {
+  public void setBegin(String begin) {
     this.begin = begin;
   }
 
@@ -81,11 +78,11 @@ public class Intervention extends MeditnanceDomain {
     this.cost = cost;
   }
 
-  public Date getEnd() {
+  public String getEnd() {
     return this.end;
   }
 
-  public void setEnd(Date end) {
+  public void setEnd(String end) {
     this.end = end;
   }
 
@@ -128,12 +125,12 @@ public class Intervention extends MeditnanceDomain {
 
   @Override
   public String toString() {
-    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+//    DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
-    String str = "Intervention du " + df.format(this.begin);
+    String str = "Intervention du " + this.begin;
     
     if (this.end != null) {
-      str += " au " + df.format(this.end);
+      str += " au " + this.end;
     }
 
     return super.toString() + " : " + str;
