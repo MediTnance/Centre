@@ -11,5 +11,6 @@
     <property name="lastName" type="string"/>
     <property name="address" not-null="false" type="string"/>
     <property name="specialization" not-null="false" type="string"/>
+    <property name="password" type="string"/>
   </class>
 </hibernate-mapping>

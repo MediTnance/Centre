@@ -12,7 +12,7 @@ import java.util.List;
 // -- Table Employés
 public class Employee extends MeditnanceDomain {
   private Integer role;
-  private String lastName, firstName, address, specialization;
+  private String lastName, firstName, address, specialization, password;
   private Date birthDate;
 
   private List<Intervention> interventions = null;
@@ -95,6 +95,14 @@ public class Employee extends MeditnanceDomain {
 
   public void setSpecialization(String specialization) {
     this.specialization = specialization;
+  }
+  
+  public String getPassword() {
+    return this.password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   @Override

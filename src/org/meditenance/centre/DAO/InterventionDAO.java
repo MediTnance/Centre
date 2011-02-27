@@ -80,7 +80,7 @@ public class InterventionDAO extends org.meditenance.centre.DAO.model.Interventi
         String t1 = dateFormat.format(date);
         Session s = HibernateUtil.getSessionFactory().openSession();
         s.beginTransaction();
-        List<Intervention> l = s.createQuery("from Intervention where begin like '" + t1 + "%'").list();
+        List<Intervention> l = s.createQuery("from Intervention where begin like '" + t1 + "%' order by begin").list();
         s.getTransaction().commit();
         s.close();
 

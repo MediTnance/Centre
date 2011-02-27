@@ -10,6 +10,7 @@
  */
 package org.meditenance.centre.ui;
 
+import java.awt.Component;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -49,13 +50,18 @@ public class Home extends javax.swing.JFrame {
     private GestionCentre centreManager = new GestionCentre();
 
     /** Creates new form Home */
-    public Home() {
+    public Home(Integer role) {
+
         List<Client> lC = this.clientDAO.getAll();
         List<Employee> lE = this.employeeDAO.getAll();
         List<Intervention> lI = this.interventionDAO.getAll();
         DefaultComboBoxModel clientModel = new DefaultComboBoxModel(lC.toArray());
 
         this.initComponents();
+
+        if (role != 0) {
+            this.PieceTab.setEnabledAt(5, false);
+        }
 
         // -- Clients
         this.clientsList.setModel(new DefaultListModel());
@@ -103,21 +109,20 @@ public class Home extends javax.swing.JFrame {
         List<Intervention> vendrediList = semaineI.get(4);
 
         for (Intervention j : lundiList) {
-            modelL.addRow(new Object[]{j.getBegin().substring(11, 13), j.getEmployee(), j.getClient(), j.getNature()});
+            modelL.addRow(new Object[]{j.getBegin().substring(11, 16), j.getEmployee(), j.getClient(), j.getNature()});
         }
         for (Intervention j : mardiList) {
-            modelMa.addRow(new Object[]{j.getBegin().substring(11, 13), j.getEmployee(), j.getClient(), j.getNature()});
+            modelMa.addRow(new Object[]{j.getBegin().substring(11, 16), j.getEmployee(), j.getClient(), j.getNature()});
         }
         for (Intervention j : mercrediList) {
-            modelMe.addRow(new Object[]{j.getBegin().substring(11, 13), j.getEmployee(), j.getClient(), j.getNature()});
+            modelMe.addRow(new Object[]{j.getBegin().substring(11, 16), j.getEmployee(), j.getClient(), j.getNature()});
         }
         for (Intervention j : jeudiList) {
-            modelJ.addRow(new Object[]{j.getBegin().substring(11, 13), j.getEmployee(), j.getClient(), j.getNature()});
+            modelJ.addRow(new Object[]{j.getBegin().substring(11, 16), j.getEmployee(), j.getClient(), j.getNature()});
         }
         for (Intervention j : vendrediList) {
-            modelV.addRow(new Object[]{j.getBegin().substring(11, 13), j.getEmployee(), j.getClient(), j.getNature()});
+            modelV.addRow(new Object[]{j.getBegin().substring(11, 16), j.getEmployee(), j.getClient(), j.getNature()});
         }
-
     }
 
     /** This method is called from within the constructor to
@@ -130,70 +135,6 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         PieceTab = new javax.swing.JTabbedPane();
-        ClientTab = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        clientsList = new javax.swing.JList();
-        clientAction = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        clientLastName = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        clientFirstName = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        clientAddress = new javax.swing.JTextField();
-        clientButton = new javax.swing.JButton();
-        cancelClient = new javax.swing.JButton();
-        clientSuppr = new javax.swing.JButton();
-        FurnitureTab = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        furnituresList = new javax.swing.JList();
-        furnitureAction = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        furnitureRef = new javax.swing.JTextField();
-        furnitureBrand = new javax.swing.JTextField();
-        furnitureClient = new javax.swing.JComboBox();
-        furnitureLastIntervention = new com.toedter.calendar.JDateChooser();
-        furnitureButton = new javax.swing.JButton();
-        furnitureCancel = new javax.swing.JButton();
-        furnitureSuppr = new javax.swing.JButton();
-        EmployeeTab = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        employeesList = new javax.swing.JList();
-        employeeAction = new javax.swing.JLabel();
-        employeeBirthDate = new com.toedter.calendar.JDateChooser();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        employeeCancel = new javax.swing.JButton();
-        employeeButton = new javax.swing.JButton();
-        employeeSuppr = new javax.swing.JButton();
-        employeeSpe = new javax.swing.JTextField();
-        employeeRole = new javax.swing.JComboBox();
-        employeeAddress = new javax.swing.JTextField();
-        employeeName = new javax.swing.JTextField();
-        employeeFirstName = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        piecesList = new javax.swing.JList();
-        pieceAction = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        pieceIntervention = new javax.swing.JComboBox();
-        pieceProvider = new javax.swing.JTextField();
-        pieceRef = new javax.swing.JTextField();
-        pieceCancel = new javax.swing.JButton();
-        pieceSuppr = new javax.swing.JButton();
-        pieceButton = new javax.swing.JButton();
         Table = new javax.swing.JTabbedPane();
         jScrollPane7 = new javax.swing.JScrollPane();
         lundiTable = new javax.swing.JTable();
@@ -232,6 +173,72 @@ public class Home extends javax.swing.JFrame {
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         heureFinIntervention = new javax.swing.JComboBox();
+        EmployeeTab = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        employeesList = new javax.swing.JList();
+        employeeAction = new javax.swing.JLabel();
+        employeeBirthDate = new com.toedter.calendar.JDateChooser();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        employeeCancel = new javax.swing.JButton();
+        employeeButton = new javax.swing.JButton();
+        employeeSuppr = new javax.swing.JButton();
+        employeeSpe = new javax.swing.JTextField();
+        employeeRole = new javax.swing.JComboBox();
+        employeeAddress = new javax.swing.JTextField();
+        employeeName = new javax.swing.JTextField();
+        employeeFirstName = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
+        employeePass = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        piecesList = new javax.swing.JList();
+        pieceAction = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        pieceIntervention = new javax.swing.JComboBox();
+        pieceProvider = new javax.swing.JTextField();
+        pieceRef = new javax.swing.JTextField();
+        pieceCancel = new javax.swing.JButton();
+        pieceSuppr = new javax.swing.JButton();
+        pieceButton = new javax.swing.JButton();
+        FurnitureTab = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        furnituresList = new javax.swing.JList();
+        furnitureAction = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        furnitureRef = new javax.swing.JTextField();
+        furnitureBrand = new javax.swing.JTextField();
+        furnitureClient = new javax.swing.JComboBox();
+        furnitureLastIntervention = new com.toedter.calendar.JDateChooser();
+        furnitureButton = new javax.swing.JButton();
+        furnitureCancel = new javax.swing.JButton();
+        furnitureSuppr = new javax.swing.JButton();
+        ClientTab = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        clientsList = new javax.swing.JList();
+        clientAction = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        clientLastName = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        clientFirstName = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        clientAddress = new javax.swing.JTextField();
+        clientButton = new javax.swing.JButton();
+        cancelClient = new javax.swing.JButton();
+        clientSuppr = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(503, 458));
@@ -239,568 +246,6 @@ public class Home extends javax.swing.JFrame {
         setResizable(false);
 
         PieceTab.setName("PieceTab"); // NOI18N
-
-        ClientTab.setMinimumSize(new java.awt.Dimension(498, 430));
-        ClientTab.setName("ClientTab"); // NOI18N
-
-        jLabel1.setText("Clients");
-        jLabel1.setName("jLabel1"); // NOI18N
-
-        jScrollPane1.setName("jScrollPane1"); // NOI18N
-
-        clientsList.setName("clientsList"); // NOI18N
-        clientsList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                clientsListValueChanged(evt);
-            }
-        });
-        jScrollPane1.setViewportView(clientsList);
-
-        clientAction.setText("Ajout d'un client");
-        clientAction.setName("clientAction"); // NOI18N
-
-        jLabel3.setText("Nom");
-        jLabel3.setName("jLabel3"); // NOI18N
-
-        clientLastName.setName("clientLastName"); // NOI18N
-
-        jLabel4.setText("Prénom");
-        jLabel4.setName("jLabel4"); // NOI18N
-
-        clientFirstName.setName("clientFirstName"); // NOI18N
-
-        jLabel5.setText("Addresse");
-        jLabel5.setName("jLabel5"); // NOI18N
-
-        clientAddress.setName("clientAddress"); // NOI18N
-
-        clientButton.setText("Ajouter");
-        clientButton.setName("clientButton"); // NOI18N
-        clientButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clientButtonActionPerformed(evt);
-            }
-        });
-
-        cancelClient.setText("Annuler");
-        cancelClient.setName("cancelClient"); // NOI18N
-        cancelClient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelClientActionPerformed(evt);
-            }
-        });
-
-        clientSuppr.setText("Supprimer");
-        clientSuppr.setEnabled(false);
-        clientSuppr.setName("clientSuppr"); // NOI18N
-        clientSuppr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clientSupprActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout ClientTabLayout = new javax.swing.GroupLayout(ClientTab);
-        ClientTab.setLayout(ClientTabLayout);
-        ClientTabLayout.setHorizontalGroup(
-            ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ClientTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ClientTabLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(clientAction))
-                    .addGroup(ClientTabLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ClientTabLayout.createSequentialGroup()
-                                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addGap(18, 18, 18)
-                                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(clientFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
-                                    .addComponent(clientLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
-                                    .addComponent(clientAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)))
-                            .addGroup(ClientTabLayout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(cancelClient)
-                                .addGap(46, 46, 46)
-                                .addComponent(clientSuppr)
-                                .addGap(30, 30, 30)
-                                .addComponent(clientButton)))
-                        .addContainerGap())))
-        );
-        ClientTabLayout.setVerticalGroup(
-            ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ClientTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(clientAction))
-                .addGap(18, 18, 18)
-                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ClientTabLayout.createSequentialGroup()
-                        .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(clientLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
-                        .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(clientFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(clientAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48)
-                        .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cancelClient)
-                            .addComponent(clientSuppr)
-                            .addComponent(clientButton)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(403, 403, 403))
-        );
-
-        PieceTab.addTab("Clients", ClientTab);
-
-        FurnitureTab.setName("FurnitureTab"); // NOI18N
-
-        jLabel6.setText("Liste du Matériel");
-        jLabel6.setName("jLabel6"); // NOI18N
-
-        jScrollPane3.setName("jScrollPane3"); // NOI18N
-
-        furnituresList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        furnituresList.setName("furnituresList"); // NOI18N
-        furnituresList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                furnituresListValueChanged(evt);
-            }
-        });
-        jScrollPane3.setViewportView(furnituresList);
-
-        furnitureAction.setText("Ajout d'un matériel");
-        furnitureAction.setName("furnitureAction"); // NOI18N
-
-        jLabel14.setText("Référence");
-        jLabel14.setName("jLabel14"); // NOI18N
-
-        jLabel15.setText("Marque");
-        jLabel15.setName("jLabel15"); // NOI18N
-
-        jLabel16.setText("Client");
-        jLabel16.setName("jLabel16"); // NOI18N
-
-        jLabel17.setText("Dernière Intervention");
-        jLabel17.setName("jLabel17"); // NOI18N
-
-        furnitureRef.setName("furnitureRef"); // NOI18N
-
-        furnitureBrand.setName("furnitureBrand"); // NOI18N
-
-        furnitureClient.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        furnitureClient.setName("furnitureClient"); // NOI18N
-
-        furnitureLastIntervention.setDateFormatString("dd/MM/yyyy");
-        furnitureLastIntervention.setName("furnitureLastIntervention"); // NOI18N
-
-        furnitureButton.setText("Ajouter");
-        furnitureButton.setName("furnitureButton"); // NOI18N
-        furnitureButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                furnitureButtonActionPerformed(evt);
-            }
-        });
-
-        furnitureCancel.setText("Annuler");
-        furnitureCancel.setName("furnitureCancel"); // NOI18N
-        furnitureCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                furnitureCancelActionPerformed(evt);
-            }
-        });
-
-        furnitureSuppr.setText("Supprimer");
-        furnitureSuppr.setEnabled(false);
-        furnitureSuppr.setName("furnitureSuppr"); // NOI18N
-        furnitureSuppr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                furnitureSupprActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout FurnitureTabLayout = new javax.swing.GroupLayout(FurnitureTab);
-        FurnitureTab.setLayout(FurnitureTabLayout);
-        FurnitureTabLayout.setHorizontalGroup(
-            FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FurnitureTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FurnitureTabLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(FurnitureTabLayout.createSequentialGroup()
-                                .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel17))
-                                .addGap(28, 28, 28)
-                                .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(furnitureLastIntervention, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(furnitureClient, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(furnitureBrand)
-                                    .addComponent(furnitureRef, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FurnitureTabLayout.createSequentialGroup()
-                                .addComponent(furnitureCancel)
-                                .addGap(18, 18, 18)
-                                .addComponent(furnitureSuppr)
-                                .addGap(18, 18, 18)
-                                .addComponent(furnitureButton)
-                                .addGap(8, 8, 8))))
-                    .addGroup(FurnitureTabLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(103, 103, 103)
-                        .addComponent(furnitureAction)))
-                .addContainerGap())
-        );
-        FurnitureTabLayout.setVerticalGroup(
-            FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FurnitureTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(furnitureAction))
-                .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FurnitureTabLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(furnitureRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(furnitureBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(furnitureClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(furnitureLastIntervention, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17))
-                        .addGap(42, 42, 42)
-                        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(furnitureCancel)
-                            .addComponent(furnitureButton)
-                            .addComponent(furnitureSuppr)))
-                    .addGroup(FurnitureTabLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(206, Short.MAX_VALUE))
-        );
-
-        PieceTab.addTab("Matériel", FurnitureTab);
-
-        EmployeeTab.setName("EmployeeTab"); // NOI18N
-
-        jLabel2.setText("Liste des Employés");
-        jLabel2.setName("jLabel2"); // NOI18N
-
-        jScrollPane2.setName("jScrollPane2"); // NOI18N
-
-        employeesList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        employeesList.setName("employeesList"); // NOI18N
-        employeesList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                employeesListValueChanged(evt);
-            }
-        });
-        jScrollPane2.setViewportView(employeesList);
-
-        employeeAction.setText("Ajout d'un employé");
-        employeeAction.setName("employeeAction"); // NOI18N
-
-        employeeBirthDate.setDateFormatString("dd/MM/yyyy");
-        employeeBirthDate.setMaxSelectableDate(new java.util.Date(253370764864000L));
-        employeeBirthDate.setName("employeeBirthDate"); // NOI18N
-
-        jLabel7.setText("Prénom");
-        jLabel7.setName("jLabel7"); // NOI18N
-
-        jLabel8.setText("Nom");
-        jLabel8.setName("jLabel8"); // NOI18N
-
-        jLabel9.setText("Addresse");
-        jLabel9.setName("jLabel9"); // NOI18N
-
-        jLabel10.setText("Rôle");
-        jLabel10.setName("jLabel10"); // NOI18N
-
-        jLabel11.setText("Spécialisation");
-        jLabel11.setName("jLabel11"); // NOI18N
-
-        jLabel12.setText("Date de Naissance");
-        jLabel12.setName("jLabel12"); // NOI18N
-
-        employeeCancel.setText("Annuler");
-        employeeCancel.setName("employeeCancel"); // NOI18N
-        employeeCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                employeeCancelActionPerformed(evt);
-            }
-        });
-
-        employeeButton.setText("Ajouter");
-        employeeButton.setName("employeeButton"); // NOI18N
-        employeeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                employeeButtonActionPerformed(evt);
-            }
-        });
-
-        employeeSuppr.setText("Supprimer");
-        employeeSuppr.setEnabled(false);
-        employeeSuppr.setName("employeeSuppr"); // NOI18N
-        employeeSuppr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                employeeSupprActionPerformed(evt);
-            }
-        });
-
-        employeeSpe.setName("employeeSpe"); // NOI18N
-
-        employeeRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        employeeRole.setName("employeeRole"); // NOI18N
-
-        employeeAddress.setName("employeeAddress"); // NOI18N
-
-        employeeName.setName("employeeName"); // NOI18N
-
-        employeeFirstName.setName("employeeFirstName"); // NOI18N
-
-        javax.swing.GroupLayout EmployeeTabLayout = new javax.swing.GroupLayout(EmployeeTab);
-        EmployeeTab.setLayout(EmployeeTabLayout);
-        EmployeeTabLayout.setHorizontalGroup(
-            EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EmployeeTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EmployeeTabLayout.createSequentialGroup()
-                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addGroup(EmployeeTabLayout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(employeeCancel)))
-                        .addGap(21, 21, 21)
-                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(employeeBirthDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                            .addComponent(employeeSpe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                            .addComponent(employeeRole, javax.swing.GroupLayout.Alignment.TRAILING, 0, 242, Short.MAX_VALUE)
-                            .addComponent(employeeAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                            .addComponent(employeeName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                            .addComponent(employeeFirstName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                            .addGroup(EmployeeTabLayout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(employeeSuppr)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                                .addComponent(employeeButton)
-                                .addGap(21, 21, 21))))
-                    .addComponent(employeeAction))
-                .addContainerGap())
-        );
-        EmployeeTabLayout.setVerticalGroup(
-            EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EmployeeTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(employeeAction))
-                .addGap(18, 18, 18)
-                .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EmployeeTabLayout.createSequentialGroup()
-                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(employeeFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
-                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(employeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(employeeAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(employeeRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
-                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(employeeSpe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
-                        .addGap(18, 18, 18)
-                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(employeeBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addGap(33, 33, 33)
-                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(employeeCancel)
-                            .addComponent(employeeSuppr)
-                            .addComponent(employeeButton)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
-                .addGap(309, 309, 309))
-        );
-
-        PieceTab.addTab("Employés", EmployeeTab);
-
-        jPanel1.setName("jPanel1"); // NOI18N
-
-        jLabel25.setText("Liste des Pièces");
-        jLabel25.setName("jLabel25"); // NOI18N
-
-        jScrollPane6.setName("jScrollPane6"); // NOI18N
-
-        piecesList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        piecesList.setName("piecesList"); // NOI18N
-        piecesList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                piecesListValueChanged(evt);
-            }
-        });
-        jScrollPane6.setViewportView(piecesList);
-
-        pieceAction.setText("Ajout d'une pièce");
-        pieceAction.setName("pieceAction"); // NOI18N
-
-        jLabel26.setText("Référence");
-        jLabel26.setName("jLabel26"); // NOI18N
-
-        jLabel27.setText("Fournisseur");
-        jLabel27.setName("jLabel27"); // NOI18N
-
-        jLabel28.setText("Intervention");
-        jLabel28.setName("jLabel28"); // NOI18N
-
-        pieceIntervention.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        pieceIntervention.setName("pieceIntervention"); // NOI18N
-
-        pieceProvider.setName("pieceProvider"); // NOI18N
-
-        pieceRef.setName("pieceRef"); // NOI18N
-
-        pieceCancel.setText("Annuler");
-        pieceCancel.setName("pieceCancel"); // NOI18N
-        pieceCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pieceCancelActionPerformed(evt);
-            }
-        });
-
-        pieceSuppr.setText("Supprimer");
-        pieceSuppr.setEnabled(false);
-        pieceSuppr.setName("pieceSuppr"); // NOI18N
-        pieceSuppr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pieceSupprActionPerformed(evt);
-            }
-        });
-
-        pieceButton.setText("Ajouter");
-        pieceButton.setName("pieceButton"); // NOI18N
-        pieceButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pieceButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel28)
-                            .addComponent(jLabel27)
-                            .addComponent(jLabel26)
-                            .addComponent(pieceCancel))
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(pieceSuppr)
-                                .addGap(36, 36, 36)
-                                .addComponent(pieceButton))
-                            .addComponent(pieceProvider, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                            .addComponent(pieceIntervention, 0, 249, Short.MAX_VALUE)
-                            .addComponent(pieceRef, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel25)
-                        .addGap(121, 121, 121)
-                        .addComponent(pieceAction)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
-                    .addComponent(pieceAction))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel26)
-                            .addComponent(pieceRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel27)
-                            .addComponent(pieceProvider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel28)
-                            .addComponent(pieceIntervention, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(58, 58, 58)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(pieceButton)
-                            .addComponent(pieceSuppr)
-                            .addComponent(pieceCancel))))
-                .addContainerGap(190, Short.MAX_VALUE))
-        );
-
-        PieceTab.addTab("Pièces", jPanel1);
 
         Table.setName("PlanningTab"); // NOI18N
 
@@ -1143,7 +588,579 @@ public class Home extends javax.swing.JFrame {
 
         PieceTab.addTab("Interventions", InterventionTab);
 
-        PieceTab.setSelectedComponent(ClientTab);
+        EmployeeTab.setName("EmployeeTab"); // NOI18N
+
+        jLabel2.setText("Liste des Employés");
+        jLabel2.setName("jLabel2"); // NOI18N
+
+        jScrollPane2.setName("jScrollPane2"); // NOI18N
+
+        employeesList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        employeesList.setName("employeesList"); // NOI18N
+        employeesList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                employeesListValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(employeesList);
+
+        employeeAction.setText("Ajout d'un employé");
+        employeeAction.setName("employeeAction"); // NOI18N
+
+        employeeBirthDate.setDateFormatString("dd/MM/yyyy");
+        employeeBirthDate.setMaxSelectableDate(new java.util.Date(253370764864000L));
+        employeeBirthDate.setName("employeeBirthDate"); // NOI18N
+
+        jLabel7.setText("Prénom");
+        jLabel7.setName("jLabel7"); // NOI18N
+
+        jLabel8.setText("Nom");
+        jLabel8.setName("jLabel8"); // NOI18N
+
+        jLabel9.setText("Addresse");
+        jLabel9.setName("jLabel9"); // NOI18N
+
+        jLabel10.setText("Rôle");
+        jLabel10.setName("jLabel10"); // NOI18N
+
+        jLabel11.setText("Spécialisation");
+        jLabel11.setName("jLabel11"); // NOI18N
+
+        jLabel12.setText("Date de Naissance");
+        jLabel12.setName("jLabel12"); // NOI18N
+
+        employeeCancel.setText("Annuler");
+        employeeCancel.setName("employeeCancel"); // NOI18N
+        employeeCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                employeeCancelActionPerformed(evt);
+            }
+        });
+
+        employeeButton.setText("Ajouter");
+        employeeButton.setName("employeeButton"); // NOI18N
+        employeeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                employeeButtonActionPerformed(evt);
+            }
+        });
+
+        employeeSuppr.setText("Supprimer");
+        employeeSuppr.setEnabled(false);
+        employeeSuppr.setName("employeeSuppr"); // NOI18N
+        employeeSuppr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                employeeSupprActionPerformed(evt);
+            }
+        });
+
+        employeeSpe.setName("employeeSpe"); // NOI18N
+
+        employeeRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        employeeRole.setName("employeeRole"); // NOI18N
+
+        employeeAddress.setName("employeeAddress"); // NOI18N
+
+        employeeName.setName("employeeName"); // NOI18N
+
+        employeeFirstName.setName("employeeFirstName"); // NOI18N
+
+        jLabel31.setText("Mot de passe");
+        jLabel31.setName("jLabel31"); // NOI18N
+
+        employeePass.setName("employeePass"); // NOI18N
+
+        javax.swing.GroupLayout EmployeeTabLayout = new javax.swing.GroupLayout(EmployeeTab);
+        EmployeeTab.setLayout(EmployeeTabLayout);
+        EmployeeTabLayout.setHorizontalGroup(
+            EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EmployeeTabLayout.createSequentialGroup()
+                .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(EmployeeTabLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(employeeAction)
+                            .addGroup(EmployeeTabLayout.createSequentialGroup()
+                                .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel31))
+                                .addGap(21, 21, 21)
+                                .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(employeePass, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(employeeBirthDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                        .addComponent(employeeSpe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                        .addComponent(employeeRole, javax.swing.GroupLayout.Alignment.TRAILING, 0, 221, Short.MAX_VALUE)
+                                        .addComponent(employeeAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                        .addComponent(employeeName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                                        .addComponent(employeeFirstName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))))))
+                    .addGroup(EmployeeTabLayout.createSequentialGroup()
+                        .addGap(253, 253, 253)
+                        .addComponent(employeeCancel)
+                        .addGap(34, 34, 34)
+                        .addComponent(employeeSuppr)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                        .addComponent(employeeButton)))
+                .addGap(33, 33, 33))
+        );
+        EmployeeTabLayout.setVerticalGroup(
+            EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EmployeeTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(employeeAction))
+                .addGap(18, 18, 18)
+                .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EmployeeTabLayout.createSequentialGroup()
+                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(employeeFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(employeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
+                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(employeeAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(18, 18, 18)
+                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(employeeRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGap(18, 18, 18)
+                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(employeeSpe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11))
+                        .addGap(18, 18, 18)
+                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(employeeBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(employeePass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel31)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+                .addGap(3, 3, 3)
+                .addGroup(EmployeeTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(employeeCancel)
+                    .addComponent(employeeSuppr)
+                    .addComponent(employeeButton))
+                .addGap(118, 118, 118))
+        );
+
+        PieceTab.addTab("Employés", EmployeeTab);
+
+        jPanel1.setName("jPanel1"); // NOI18N
+
+        jLabel25.setText("Liste des Pièces");
+        jLabel25.setName("jLabel25"); // NOI18N
+
+        jScrollPane6.setName("jScrollPane6"); // NOI18N
+
+        piecesList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        piecesList.setName("piecesList"); // NOI18N
+        piecesList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                piecesListValueChanged(evt);
+            }
+        });
+        jScrollPane6.setViewportView(piecesList);
+
+        pieceAction.setText("Ajout d'une pièce");
+        pieceAction.setName("pieceAction"); // NOI18N
+
+        jLabel26.setText("Référence");
+        jLabel26.setName("jLabel26"); // NOI18N
+
+        jLabel27.setText("Fournisseur");
+        jLabel27.setName("jLabel27"); // NOI18N
+
+        jLabel28.setText("Intervention");
+        jLabel28.setName("jLabel28"); // NOI18N
+
+        pieceIntervention.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pieceIntervention.setName("pieceIntervention"); // NOI18N
+
+        pieceProvider.setName("pieceProvider"); // NOI18N
+
+        pieceRef.setName("pieceRef"); // NOI18N
+
+        pieceCancel.setText("Annuler");
+        pieceCancel.setName("pieceCancel"); // NOI18N
+        pieceCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pieceCancelActionPerformed(evt);
+            }
+        });
+
+        pieceSuppr.setText("Supprimer");
+        pieceSuppr.setEnabled(false);
+        pieceSuppr.setName("pieceSuppr"); // NOI18N
+        pieceSuppr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pieceSupprActionPerformed(evt);
+            }
+        });
+
+        pieceButton.setText("Ajouter");
+        pieceButton.setName("pieceButton"); // NOI18N
+        pieceButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pieceButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel28)
+                            .addComponent(jLabel27)
+                            .addComponent(jLabel26)
+                            .addComponent(pieceCancel))
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(pieceSuppr)
+                                .addGap(36, 36, 36)
+                                .addComponent(pieceButton))
+                            .addComponent(pieceProvider, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                            .addComponent(pieceIntervention, 0, 249, Short.MAX_VALUE)
+                            .addComponent(pieceRef, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addGap(121, 121, 121)
+                        .addComponent(pieceAction)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(pieceAction))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel26)
+                            .addComponent(pieceRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel27)
+                            .addComponent(pieceProvider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel28)
+                            .addComponent(pieceIntervention, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(58, 58, 58)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pieceButton)
+                            .addComponent(pieceSuppr)
+                            .addComponent(pieceCancel))))
+                .addContainerGap(190, Short.MAX_VALUE))
+        );
+
+        PieceTab.addTab("Pièces", jPanel1);
+
+        FurnitureTab.setName("FurnitureTab"); // NOI18N
+
+        jLabel6.setText("Liste du Matériel");
+        jLabel6.setName("jLabel6"); // NOI18N
+
+        jScrollPane3.setName("jScrollPane3"); // NOI18N
+
+        furnituresList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        furnituresList.setName("furnituresList"); // NOI18N
+        furnituresList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                furnituresListValueChanged(evt);
+            }
+        });
+        jScrollPane3.setViewportView(furnituresList);
+
+        furnitureAction.setText("Ajout d'un matériel");
+        furnitureAction.setName("furnitureAction"); // NOI18N
+
+        jLabel14.setText("Référence");
+        jLabel14.setName("jLabel14"); // NOI18N
+
+        jLabel15.setText("Marque");
+        jLabel15.setName("jLabel15"); // NOI18N
+
+        jLabel16.setText("Client");
+        jLabel16.setName("jLabel16"); // NOI18N
+
+        jLabel17.setText("Dernière Intervention");
+        jLabel17.setName("jLabel17"); // NOI18N
+
+        furnitureRef.setName("furnitureRef"); // NOI18N
+
+        furnitureBrand.setName("furnitureBrand"); // NOI18N
+
+        furnitureClient.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        furnitureClient.setName("furnitureClient"); // NOI18N
+
+        furnitureLastIntervention.setDateFormatString("dd/MM/yyyy");
+        furnitureLastIntervention.setName("furnitureLastIntervention"); // NOI18N
+
+        furnitureButton.setText("Ajouter");
+        furnitureButton.setName("furnitureButton"); // NOI18N
+        furnitureButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                furnitureButtonActionPerformed(evt);
+            }
+        });
+
+        furnitureCancel.setText("Annuler");
+        furnitureCancel.setName("furnitureCancel"); // NOI18N
+        furnitureCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                furnitureCancelActionPerformed(evt);
+            }
+        });
+
+        furnitureSuppr.setText("Supprimer");
+        furnitureSuppr.setEnabled(false);
+        furnitureSuppr.setName("furnitureSuppr"); // NOI18N
+        furnitureSuppr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                furnitureSupprActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout FurnitureTabLayout = new javax.swing.GroupLayout(FurnitureTab);
+        FurnitureTab.setLayout(FurnitureTabLayout);
+        FurnitureTabLayout.setHorizontalGroup(
+            FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FurnitureTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(FurnitureTabLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(FurnitureTabLayout.createSequentialGroup()
+                                .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel17))
+                                .addGap(28, 28, 28)
+                                .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(furnitureLastIntervention, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(furnitureClient, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(furnitureBrand)
+                                    .addComponent(furnitureRef, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FurnitureTabLayout.createSequentialGroup()
+                                .addComponent(furnitureCancel)
+                                .addGap(18, 18, 18)
+                                .addComponent(furnitureSuppr)
+                                .addGap(18, 18, 18)
+                                .addComponent(furnitureButton)
+                                .addGap(8, 8, 8))))
+                    .addGroup(FurnitureTabLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(103, 103, 103)
+                        .addComponent(furnitureAction)))
+                .addContainerGap())
+        );
+        FurnitureTabLayout.setVerticalGroup(
+            FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FurnitureTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(furnitureAction))
+                .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(FurnitureTabLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(furnitureRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(furnitureBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(furnitureClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(furnitureLastIntervention, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17))
+                        .addGap(42, 42, 42)
+                        .addGroup(FurnitureTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(furnitureCancel)
+                            .addComponent(furnitureButton)
+                            .addComponent(furnitureSuppr)))
+                    .addGroup(FurnitureTabLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(206, Short.MAX_VALUE))
+        );
+
+        PieceTab.addTab("Matériel", FurnitureTab);
+
+        ClientTab.setMinimumSize(new java.awt.Dimension(498, 430));
+        ClientTab.setName("ClientTab"); // NOI18N
+
+        jLabel1.setText("Clients");
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
+
+        clientsList.setName("clientsList"); // NOI18N
+        clientsList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                clientsListValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(clientsList);
+
+        clientAction.setText("Ajout d'un client");
+        clientAction.setName("clientAction"); // NOI18N
+
+        jLabel3.setText("Nom");
+        jLabel3.setName("jLabel3"); // NOI18N
+
+        clientLastName.setName("clientLastName"); // NOI18N
+
+        jLabel4.setText("Prénom");
+        jLabel4.setName("jLabel4"); // NOI18N
+
+        clientFirstName.setName("clientFirstName"); // NOI18N
+
+        jLabel5.setText("Addresse");
+        jLabel5.setName("jLabel5"); // NOI18N
+
+        clientAddress.setName("clientAddress"); // NOI18N
+
+        clientButton.setText("Ajouter");
+        clientButton.setName("clientButton"); // NOI18N
+        clientButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clientButtonActionPerformed(evt);
+            }
+        });
+
+        cancelClient.setText("Annuler");
+        cancelClient.setName("cancelClient"); // NOI18N
+        cancelClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelClientActionPerformed(evt);
+            }
+        });
+
+        clientSuppr.setText("Supprimer");
+        clientSuppr.setEnabled(false);
+        clientSuppr.setName("clientSuppr"); // NOI18N
+        clientSuppr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clientSupprActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ClientTabLayout = new javax.swing.GroupLayout(ClientTab);
+        ClientTab.setLayout(ClientTabLayout);
+        ClientTabLayout.setHorizontalGroup(
+            ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ClientTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ClientTabLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(clientAction))
+                    .addGroup(ClientTabLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ClientTabLayout.createSequentialGroup()
+                                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(18, 18, 18)
+                                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(clientFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                                    .addComponent(clientLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                                    .addComponent(clientAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)))
+                            .addGroup(ClientTabLayout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(cancelClient)
+                                .addGap(46, 46, 46)
+                                .addComponent(clientSuppr)
+                                .addGap(30, 30, 30)
+                                .addComponent(clientButton)))
+                        .addContainerGap())))
+        );
+        ClientTabLayout.setVerticalGroup(
+            ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ClientTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(clientAction))
+                .addGap(18, 18, 18)
+                .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ClientTabLayout.createSequentialGroup()
+                        .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(clientLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(clientFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(clientAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48)
+                        .addGroup(ClientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cancelClient)
+                            .addComponent(clientSuppr)
+                            .addComponent(clientButton)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(403, 403, 403))
+        );
+
+        PieceTab.addTab("Clients", ClientTab);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1211,10 +1228,21 @@ public class Home extends javax.swing.JFrame {
       Employee emp = (Employee) this.employeesList.getSelectedValue();
 
       if (emp != null && JOptionPane.showConfirmDialog(this, "Voulez vous vraiment supprimer l'employé " + emp + " ?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+          List<Intervention> interventions = this.interventionDAO.getByEmployee(emp);
           this.employeeDAO.remove(emp);
           this.clearEmployeeSelection();
 
           ((DefaultListModel) this.employeesList.getModel()).removeElement(emp);
+
+          int taille = this.interventionsList.getModel().getSize();
+          for (Intervention i : interventions) {
+              for (int j = 0; j < taille; j++) {
+                  Intervention intervention = (Intervention) this.interventionsList.getModel().getElementAt(j);
+                  if (i.getId().equals(intervention.getId())) {
+                      ((DefaultListModel) this.interventionsList.getModel()).removeElement(intervention);
+                  }
+              }
+          }
       }
   }//GEN-LAST:event_employeeSupprActionPerformed
 
@@ -1222,11 +1250,22 @@ public class Home extends javax.swing.JFrame {
       Client cli = (Client) this.clientsList.getSelectedValue();
 
       if (cli != null && JOptionPane.showConfirmDialog(this, "Voulez vous vraiment supprimer le client " + cli + " ?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+          List<Intervention> interventions = this.interventionDAO.getByClient(cli);
           this.clientDAO.remove(cli);
           this.clearClientSelection();
 
           ((DefaultListModel) this.clientsList.getModel()).removeElement(cli);
           ((DefaultComboBoxModel) this.furnitureClient.getModel()).removeElement(cli);
+          
+          int taille = this.interventionsList.getModel().getSize();
+          for (Intervention i : interventions) {
+              for (int j = 0; j < taille; j++) {
+                  Intervention intervention = (Intervention) this.interventionsList.getModel().getElementAt(j);
+                  if (i.getId().equals(intervention.getId())) {
+                      ((DefaultListModel) this.interventionsList.getModel()).removeElement(intervention);
+                  }
+              }
+          }
       }
   }//GEN-LAST:event_clientSupprActionPerformed
 
@@ -1254,8 +1293,8 @@ public class Home extends javax.swing.JFrame {
   private void employeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeButtonActionPerformed
       Employee emp = new Employee();
 
-      if (this.employeeName.getText().isEmpty() || this.employeeFirstName.getText().isEmpty() || this.employeeRole.getSelectedIndex() == -1) {
-          JOptionPane.showMessageDialog(this, "Les champs pour le nom, le prénom et le rôle de l'employé sont obligatoires", "Erreur", JOptionPane.ERROR_MESSAGE);
+      if (this.employeePass.getText().isEmpty() || this.employeeName.getText().isEmpty() || this.employeeFirstName.getText().isEmpty() || this.employeeRole.getSelectedIndex() == -1) {
+          JOptionPane.showMessageDialog(this, "Les champs pour le mot de passe, le nom, le prénom et le rôle de l'employé sont obligatoires", "Erreur", JOptionPane.ERROR_MESSAGE);
           return;
       }
 
@@ -1269,6 +1308,7 @@ public class Home extends javax.swing.JFrame {
       emp.setAddress(this.employeeAddress.getText());
       emp.setBirthDate(this.employeeBirthDate.getDate());
       emp.setSpecialization(this.employeeSpe.getText());
+      emp.setPassword(this.employeePass.getText());
 
       this.employeeDAO.save(emp);
 
@@ -1571,6 +1611,7 @@ public class Home extends javax.swing.JFrame {
         this.employeeName.setText("");
         this.employeeFirstName.setText("");
         this.employeeSpe.setText("");
+        this.employeePass.setText("");
         this.employeeBirthDate.setDate(null);
 
         this.employeeAction.setText("Ajout d'un employé");
@@ -1642,18 +1683,18 @@ public class Home extends javax.swing.JFrame {
             return false;
         }
     }
-
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable()  {
-
-            public void run() {
-                new Home().setVisible(true);
-            }
-        });
-    }
+    // main déplacé dans Auth.java
+//    public static void main(String args[]) {
+//        java.awt.EventQueue.invokeLater(new Runnable()  {
+//
+//            public void run() {
+//                new Home(0).setVisible(true);
+//            }
+//        });
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ClientTab;
     private javax.swing.JPanel EmployeeTab;
@@ -1676,6 +1717,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton employeeCancel;
     private javax.swing.JTextField employeeFirstName;
     private javax.swing.JTextField employeeName;
+    private javax.swing.JTextField employeePass;
     private javax.swing.JComboBox employeeRole;
     private javax.swing.JTextField employeeSpe;
     private javax.swing.JButton employeeSuppr;
@@ -1727,6 +1769,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

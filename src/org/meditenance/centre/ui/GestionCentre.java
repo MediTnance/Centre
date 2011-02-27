@@ -35,6 +35,9 @@ public class GestionCentre {
 
         switch (calendar.get(Calendar.DAY_OF_WEEK)) {
 
+            case Calendar.SUNDAY: calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + 1);
+                break;
+            
             case Calendar.TUESDAY: calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - 1);
                 break;
                 
@@ -52,5 +55,11 @@ public class GestionCentre {
             calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + 1);
         }
         return semaine;
+    }
+    
+    public boolean authtentification(String login, String pass)
+    {
+        
+        return false;
     }
 }
