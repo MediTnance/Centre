@@ -40,21 +40,15 @@ import org.meditenance.centre.domain.Piece;
  * @author Talus
  */
 public class Home extends javax.swing.JFrame {
-    // -- DAOs
-
-    private DAO clientDAO = new ClientDAO();
-    private DAO employeeDAO = new EmployeeDAO();
-    private InterventionDAO interventionDAO = new org.meditenance.centre.DAO.InterventionDAO();
-    private FurnitureDAO furnitureDAO = new org.meditenance.centre.DAO.FurnitureDAO();
-    private PieceDAO pieceDAO = new org.meditenance.centre.DAO.PieceDAO();
+    
     private GestionCentre centreManager = new GestionCentre();
 
     /** Creates new form Home */
     public Home(Integer role) {
 
-        List<Client> lC = this.clientDAO.getAll();
-        List<Employee> lE = this.employeeDAO.getAll();
-        List<Intervention> lI = this.interventionDAO.getAll();
+        List<Client> lC = this.centreManager.getAllClients();
+        List<Employee> lE = this.centreManager.getAllEmployees();
+        List<Intervention> lI = this.centreManager.getAllInterventions();
         DefaultComboBoxModel clientModel = new DefaultComboBoxModel(lC.toArray());
 
         this.initComponents();
@@ -75,7 +69,7 @@ public class Home extends javax.swing.JFrame {
 
         // -- Matériel
         this.furnituresList.setModel(new DefaultListModel());
-        this.fillList(this.furnitureDAO.getAll(), this.furnituresList);
+        this.fillList(this.centreManager.getAllFurnitures(), this.furnituresList);
         this.furnitureClient.setModel(clientModel);
         this.furnitureClient.setSelectedIndex(-1);
 
@@ -91,7 +85,7 @@ public class Home extends javax.swing.JFrame {
 
         // -- Pièces
         this.piecesList.setModel(new DefaultListModel());
-        this.fillList(this.pieceDAO.getAll(), this.piecesList);
+        this.fillList(this.centreManager.getAllPieces(), this.piecesList);
         this.pieceIntervention.setModel(new DefaultComboBoxModel(lI.toArray()));
         this.pieceIntervention.setSelectedIndex(-1);
 
@@ -1196,9 +1190,9 @@ public class Home extends javax.swing.JFrame {
       cli.setLastName(this.clientLastName.getText());
       cli.setAddress(this.clientAddress.getText());
 
-      this.clientDAO.save(cli);
+      this.centreManager.saveClient(cli);
 
-      List<Client> l = this.clientDAO.getAll();
+      List<Client> l = this.centreManager.getAllClients();
       DefaultComboBoxModel model = new DefaultComboBoxModel(l.toArray());
 
       this.interventionClient.setModel(model);
@@ -1228,8 +1222,8 @@ public class Home extends javax.swing.JFrame {
       Employee emp = (Employee) this.employeesList.getSelectedValue();
 
       if (emp != null && JOptionPane.showConfirmDialog(this, "Voulez vous vraiment supprimer l'employé " + emp + " ?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-          List<Intervention> interventions = this.interventionDAO.getByEmployee(emp);
-          this.employeeDAO.remove(emp);
+          List<Intervention> interventions = this.centreManager.getInterventionsByEmployee(emp);
+          this.centreManager.removeEmployee(emp);
           this.clearEmployeeSelection();
 
           ((DefaultListModel) this.employeesList.getModel()).removeElement(emp);
@@ -1240,29 +1234,50 @@ public class Home extends javax.swing.JFrame {
                   Intervention intervention = (Intervention) this.interventionsList.getModel().getElementAt(j);
                   if (i.getId().equals(intervention.getId())) {
                       ((DefaultListModel) this.interventionsList.getModel()).removeElement(intervention);
+                      taille--;
+                  }
+              }
+              DefaultTableModel model = updatePlanning(i);
+              if (model != null) {
+                  for (int k = 0; k < model.getRowCount(); k++) {
+                      Employee tabEmp = (Employee) model.getValueAt(k, 1);
+                      String[] nom = tabEmp.toString().split(" ");
+                      if (nom[1].equals(emp.getLastName()) && nom[0].equals(emp.getFirstName())) {
+                          model.removeRow(k);
+                      }
                   }
               }
           }
       }
   }//GEN-LAST:event_employeeSupprActionPerformed
-
   private void clientSupprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientSupprActionPerformed
       Client cli = (Client) this.clientsList.getSelectedValue();
 
       if (cli != null && JOptionPane.showConfirmDialog(this, "Voulez vous vraiment supprimer le client " + cli + " ?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-          List<Intervention> interventions = this.interventionDAO.getByClient(cli);
-          this.clientDAO.remove(cli);
+          List<Intervention> interventions = this.centreManager.getInterventionsByClient(cli);
+          this.centreManager.removeClient(cli);
           this.clearClientSelection();
 
           ((DefaultListModel) this.clientsList.getModel()).removeElement(cli);
           ((DefaultComboBoxModel) this.furnitureClient.getModel()).removeElement(cli);
-          
+
           int taille = this.interventionsList.getModel().getSize();
           for (Intervention i : interventions) {
               for (int j = 0; j < taille; j++) {
                   Intervention intervention = (Intervention) this.interventionsList.getModel().getElementAt(j);
                   if (i.getId().equals(intervention.getId())) {
                       ((DefaultListModel) this.interventionsList.getModel()).removeElement(intervention);
+                      taille--;
+                  }
+              }
+              DefaultTableModel model = updatePlanning(i);
+              if (model != null) {
+                  for (int k = 0; k < model.getRowCount(); k++) {
+                      Client tabCli = (Client) model.getValueAt(k, 2);
+                      String[] nom = tabCli.toString().split(" ");
+                      if (nom[1].equals(cli.getLastName()) && nom[0].equals(cli.getFirstName())) {
+                          model.removeRow(k);
+                      }
                   }
               }
           }
@@ -1310,9 +1325,9 @@ public class Home extends javax.swing.JFrame {
       emp.setSpecialization(this.employeeSpe.getText());
       emp.setPassword(this.employeePass.getText());
 
-      this.employeeDAO.save(emp);
+      this.centreManager.saveEmployee(emp);
 
-      List<Employee> l = this.employeeDAO.getAll();
+      List<Employee> l = this.centreManager.getAllEmployees();
 
       this.interventionEmployee.setModel(new DefaultComboBoxModel(l.toArray()));
       this.fillList(l, this.employeesList);
@@ -1345,7 +1360,7 @@ public class Home extends javax.swing.JFrame {
       Furniture fur = (Furniture) this.furnituresList.getSelectedValue();
 
       if (fur != null && JOptionPane.showConfirmDialog(this, "Voulez vous vraiment supprimer le matériel " + fur + " ?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-          this.furnitureDAO.remove(fur);
+          this.centreManager.removeFurniture(fur);
           this.clearFurnitureSelection();
 
           ((DefaultListModel) this.furnituresList.getModel()).removeElement(fur);
@@ -1367,9 +1382,9 @@ public class Home extends javax.swing.JFrame {
       fur.setClient((Client) this.furnitureClient.getSelectedItem());
       fur.setLastIntervention(this.furnitureLastIntervention.getDate());
 
-      this.furnitureDAO.save(fur);
+      this.centreManager.saveFurniture(fur);
       this.clearFurnitureSelection();
-      this.fillList(this.furnitureDAO.getAll(), this.furnituresList);
+      this.fillList(this.centreManager.getAllFurnitures(), this.furnituresList);
   }//GEN-LAST:event_furnitureButtonActionPerformed
 
   private void interventionCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interventionCancelActionPerformed
@@ -1380,10 +1395,20 @@ public class Home extends javax.swing.JFrame {
       Intervention intervention = (Intervention) this.interventionsList.getSelectedValue();
 
       if (intervention != null && JOptionPane.showConfirmDialog(this, "Voulez vous vraiment supprimer " + intervention + " ?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-          this.interventionDAO.remove(intervention);
+          this.centreManager.removeIntervention(intervention);
           this.clearInterventionSelection();
 
           ((DefaultListModel) this.interventionsList.getModel()).removeElement(intervention);
+          DefaultTableModel model = updatePlanning(intervention);
+          if (model != null) {
+              for (int k = 0; k < model.getRowCount(); k++) {
+                  Client client = (Client) model.getValueAt(k, 2);
+                  Employee employe = (Employee) model.getValueAt(k, 1);
+                  if (client.toString().equals(intervention.getClient().toString()) && employe.toString().equals(intervention.getEmployee().toString())) {
+                      model.removeRow(k);
+                  }
+              }
+          }
       }
   }//GEN-LAST:event_interventionSupprActionPerformed
 
@@ -1412,6 +1437,8 @@ public class Home extends javax.swing.JFrame {
 
               this.interventionAction.setText("Edition de l'intervention n°" + i.getId());
               this.interventionButton.setText("Editer");
+
+
           } catch (ParseException ex) {
               Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
           }
@@ -1459,62 +1486,25 @@ public class Home extends javax.swing.JFrame {
       intervention.setClient((Client) this.interventionClient.getSelectedItem());
       intervention.setNature(this.interventionType.getSelectedIndex());
 
-      this.interventionDAO.save(intervention);
+      this.centreManager.saveIntervention(intervention);
 
-      List<Intervention> lI = this.interventionDAO.getAll();
+      List<Intervention> lI = this.centreManager.getAllInterventions();
 
       this.pieceIntervention.setModel(new DefaultComboBoxModel(lI.toArray()));
       this.fillList(lI, this.interventionsList);
       this.clearInterventionSelection();
 
-      updatePlanning(intervention);
+      DefaultTableModel model = updatePlanning(intervention);
+      if (model != null) {
+          model.addRow(new Object[]{intervention.getBegin().substring(11, 13), intervention.getEmployee(), intervention.getClient(), intervention.getNature()});
+      }
   }//GEN-LAST:event_interventionButtonActionPerformed
 
-    private void updatePlanning(Intervention intervention) {
-        Calendar calendar = Calendar.getInstance();
+    private DefaultTableModel updatePlanning(Intervention intervention) {
+
         Calendar interCal = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = format.parse(intervention.getBegin());
-        } catch (ParseException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        interCal.setTime(date);
-        boolean ok = false;
         DefaultTableModel model = null;
-        switch (calendar.get(Calendar.DAY_OF_WEEK)) {
-
-            case Calendar.MONDAY:
-                if ((interCal.get(Calendar.DAY_OF_YEAR) >= calendar.get(Calendar.DAY_OF_YEAR)) && (interCal.get(Calendar.DAY_OF_YEAR) <= (calendar.get(Calendar.DAY_OF_YEAR) + 4))) {
-                    ok = true;
-                }
-                break;
-
-            case Calendar.TUESDAY:
-                if ((interCal.get(Calendar.DAY_OF_YEAR) >= calendar.get(Calendar.DAY_OF_YEAR)) && (interCal.get(Calendar.DAY_OF_YEAR) <= (calendar.get(Calendar.DAY_OF_YEAR) + 3))) {
-                    ok = true;
-                }
-                break;
-
-            case Calendar.WEDNESDAY:
-                if ((interCal.get(Calendar.DAY_OF_YEAR) >= calendar.get(Calendar.DAY_OF_YEAR)) && (interCal.get(Calendar.DAY_OF_YEAR) <= (calendar.get(Calendar.DAY_OF_YEAR) + 2))) {
-                    ok = true;
-                }
-                break;
-
-            case Calendar.THURSDAY:
-                if ((interCal.get(Calendar.DAY_OF_YEAR) == calendar.get(Calendar.DAY_OF_YEAR)) || (interCal.get(Calendar.DAY_OF_YEAR) == (calendar.get(Calendar.DAY_OF_YEAR) + 1))) {
-                    ok = true;
-                }
-                break;
-
-            case Calendar.FRIDAY:
-                if (interCal.get(Calendar.DAY_OF_YEAR) == calendar.get(Calendar.DAY_OF_YEAR)) {
-                    ok = true;
-                }
-                break;
-        }
+        boolean ok = this.centreManager.isInterventionInCurrentWeek(intervention, interCal);
 
         if (ok) {
             switch (interCal.get(Calendar.DAY_OF_WEEK)) {
@@ -1539,8 +1529,8 @@ public class Home extends javax.swing.JFrame {
                     model = (DefaultTableModel) this.vendrediTable.getModel();
                     break;
             }
-            model.addRow(new Object[]{intervention.getBegin().substring(11, 13), intervention.getEmployee(), intervention.getClient(), intervention.getNature()});
         }
+        return model;
     }
 
   private void pieceCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pieceCancelActionPerformed
@@ -1551,7 +1541,7 @@ public class Home extends javax.swing.JFrame {
       Piece piece = (Piece) this.piecesList.getSelectedValue();
 
       if (piece != null && JOptionPane.showConfirmDialog(this, "Voulez vous vraiment supprimer la pièce " + piece + " ?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-          this.pieceDAO.remove(piece);
+          this.centreManager.removePiece(piece);
           this.clearPieceSelection();
 
           ((DefaultListModel) this.piecesList.getModel()).removeElement(piece);
@@ -1589,8 +1579,8 @@ public class Home extends javax.swing.JFrame {
       p.setProvider(this.pieceProvider.getText());
       p.setReference(this.pieceRef.getText());
 
-      this.pieceDAO.save(p);
-      this.fillList(this.pieceDAO.getAll(), this.piecesList);
+      this.centreManager.savePiece(p);
+      this.fillList(this.centreManager.getAllPieces(), this.piecesList);
       this.clearPieceSelection();
   }//GEN-LAST:event_pieceButtonActionPerformed
 
@@ -1683,12 +1673,13 @@ public class Home extends javax.swing.JFrame {
             return false;
         }
     }
+
     /**
      * @param args the command line arguments
      */
     // main déplacé dans Auth.java
 //    public static void main(String args[]) {
-//        java.awt.EventQueue.invokeLater(new Runnable()  {
+//        java.awt.EventQueue.invokeLater(new Runnable()      {
 //
 //            public void run() {
 //                new Home(0).setVisible(true);

@@ -107,6 +107,6 @@ public class Employee extends MeditnanceDomain {
 
   @Override
   public String toString() {
-    return super.toString() + " : " + this.firstName + " " + this.lastName;
+    return this.firstName + " " + this.lastName;
   }
 }

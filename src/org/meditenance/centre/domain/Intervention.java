@@ -133,6 +133,6 @@ public class Intervention extends MeditnanceDomain {
       str += " au " + this.end;
     }
 
-    return super.toString() + " : " + str;
+    return str;
   }
 }
