@@ -69,7 +69,7 @@ public class Furniture extends MeditnanceDomain {
     }
 
     this.client = client;
-    this.client.addFurniture(this);
+//    this.client.addFurniture(this);
   }
 
   @Override

@@ -43,19 +43,19 @@ public class GestionCentre {
     }
 
     public void saveEmployee(Employee employee) {
-        this.clientDAO.save(employee);
+        this.employeeDAO.save(employee);
     }
 
     public void saveIntervention(Intervention intervention) {
-        this.clientDAO.save(intervention);
+        this.interventionDAO.save(intervention);
     }
 
     public void saveFurniture(Furniture furniture) {
-        this.clientDAO.save(furniture);
+        this.furnitureDAO.save(furniture);
     }
 
     public void savePiece(Piece piece) {
-        this.clientDAO.save(piece);
+        this.pieceDAO.save(piece);
     }
     
     public void removeClient(Client client) {
@@ -63,19 +63,19 @@ public class GestionCentre {
     }
 
     public void removeEmployee(Employee employee) {
-        this.clientDAO.remove(employee);
+        this.employeeDAO.remove(employee);
     }
 
     public void removeIntervention(Intervention intervention) {
-        this.clientDAO.remove(intervention);
+        this.interventionDAO.remove(intervention);
     }
 
     public void removeFurniture(Furniture furniture) {
-        this.clientDAO.remove(furniture);
+        this.furnitureDAO.remove(furniture);
     }
 
     public void removePiece(Piece piece) {
-        this.clientDAO.remove(piece);
+        this.pieceDAO.remove(piece);
     }
 
     public List<Client> getAllClients() {
