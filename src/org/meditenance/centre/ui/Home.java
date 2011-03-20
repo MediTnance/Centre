@@ -34,6 +34,7 @@ import org.meditenance.centre.domain.Employee;
 import org.meditenance.centre.domain.Furniture;
 import org.meditenance.centre.domain.Intervention;
 import org.meditenance.centre.domain.Piece;
+import org.meditenance.centre.util.ListenNetwork;
 
 /**
  *
@@ -46,6 +47,9 @@ public class Home extends javax.swing.JFrame {
     /** Creates new form Home */
     public Home(Integer role) {
 
+        ListenNetwork t = new ListenNetwork(this);
+        t.start();
+        
         List<Client> lC = this.centreManager.getAllClients();
         List<Employee> lE = this.centreManager.getAllEmployees();
         List<Intervention> lI = this.centreManager.getAllInterventions();
@@ -1678,14 +1682,14 @@ public class Home extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     // main déplacé dans Auth.java
-//    public static void main(String args[]) {
-//        java.awt.EventQueue.invokeLater(new Runnable()      {
-//
-//            public void run() {
-//                new Home(0).setVisible(true);
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable()      {
+
+            public void run() {
+                new Home(0).setVisible(true);
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ClientTab;
     private javax.swing.JPanel EmployeeTab;

@@ -55,6 +55,6 @@ public class Piece extends MeditnanceDomain {
 
   @Override
   public String toString() {
-    return super.toString() + " : Pièce " + this.reference;
+    return "Pièce " + this.reference;
   }
 }

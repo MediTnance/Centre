@@ -138,6 +138,10 @@ public class GestionCentre {
             case Calendar.FRIDAY:
                 calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - 4);
                 break;
+                
+           case Calendar.SATURDAY:
+                calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - 5);
+                break;
         }
         for (int i = 0; i < 5; i++) {
             semaine.add(this.interventionDAO.getByDate(calendar.getTime()));
