@@ -46,9 +46,6 @@ public class Home extends javax.swing.JFrame {
 
     /** Creates new form Home */
     public Home(Integer role) {
-
-        ListenNetwork t = new ListenNetwork(this);
-        t.start();
         
         List<Client> lC = this.centreManager.getAllClients();
         List<Employee> lE = this.centreManager.getAllEmployees();
@@ -121,6 +118,9 @@ public class Home extends javax.swing.JFrame {
         for (Intervention j : vendrediList) {
             modelV.addRow(new Object[]{j.getBegin().substring(11, 16), j.getEmployee(), j.getClient(), j.getNature()});
         }
+        
+        ListenNetwork t = new ListenNetwork(this);
+        t.start();
     }
 
     /** This method is called from within the constructor to
@@ -1682,14 +1682,14 @@ public class Home extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     // main déplacé dans Auth.java
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable()      {
 
             public void run() {
                 new Home(0).setVisible(true);
             }
         });
-    }
+    }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ClientTab;
     private javax.swing.JPanel EmployeeTab;

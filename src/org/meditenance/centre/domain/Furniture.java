@@ -74,6 +74,6 @@ public class Furniture extends MeditnanceDomain {
 
   @Override
   public String toString() {
-    return super.toString() + " : " + this.brand + " : " + this.ref;
+    return this.brand + " : " + this.ref;
   }
 }

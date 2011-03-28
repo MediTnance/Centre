@@ -6,8 +6,12 @@
 package org.meditenance.centre.util;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import net.sf.json.JSONObject;
 import org.apache.http.HttpEntity;
@@ -18,6 +22,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 /**
  *
@@ -78,5 +83,44 @@ public class Reseau {
             return null;
         }
         return result;
+    }
+    
+    public static ArrayList<NameValuePair> readPiecesOrders(String path) {
+        FileInputStream fIn = null;
+        InputStreamReader isr = null;
+//        String data = null;
+        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        try {
+            fIn = new FileInputStream(path);
+            isr = new InputStreamReader(fIn);
+            BufferedReader buffreader = new BufferedReader(isr);
+//            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = buffreader.readLine()) != null) {
+//                sb.append(line + "\n");
+                System.out.println(line);
+                String[] fields = line.split(" ");
+                nameValuePairs.add(new BasicNameValuePair("brand", fields[0]));
+                nameValuePairs.add(new BasicNameValuePair("ref", fields[1]));
+            }
+//            data = sb.toString();
+            isr.close();
+            fIn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return nameValuePairs;
+    }
+    
+    public static void clearFile(String path) {
+        try {
+            FileOutputStream fOut = new FileOutputStream(path);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.write("");
+            osw.flush();
+            osw.close();
+        } catch (Exception ex) {
+           
+        }
     }
 }
