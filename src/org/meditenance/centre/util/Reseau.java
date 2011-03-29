@@ -88,22 +88,18 @@ public class Reseau {
     public static ArrayList<NameValuePair> readPiecesOrders(String path) {
         FileInputStream fIn = null;
         InputStreamReader isr = null;
-//        String data = null;
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         try {
             fIn = new FileInputStream(path);
             isr = new InputStreamReader(fIn);
             BufferedReader buffreader = new BufferedReader(isr);
-//            StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = buffreader.readLine()) != null) {
-//                sb.append(line + "\n");
                 System.out.println(line);
                 String[] fields = line.split(" ");
                 nameValuePairs.add(new BasicNameValuePair("brand", fields[0]));
                 nameValuePairs.add(new BasicNameValuePair("ref", fields[1]));
             }
-//            data = sb.toString();
             isr.close();
             fIn.close();
         } catch (Exception e) {

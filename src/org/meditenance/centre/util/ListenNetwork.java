@@ -5,16 +5,9 @@
 package org.meditenance.centre.util;
 
 import java.awt.Component;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  *
@@ -29,22 +22,7 @@ public class ListenNetwork extends Thread {
     }
 
     public void run() {
-        URL url = null;
-        URLConnection urlConn = null;
-        long oldDate = 0;
-        long newDate = 0;
-//        try {
-//            url = new URL("http://localhost/smartphone/pieceDataManager/pieces.php");
-//            urlConn = url.openConnection();
-//            urlConn.connect();
-//            oldDate = urlConn.getLastModified();
-//            System.out.println(String.valueOf(oldDate));
-//        } catch (MalformedURLException ex) {
-//            Logger.getLogger(ListenNetwork.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(ListenNetwork.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
+
         String oldresult = "";
         String newresult = "";
         oldresult = Reseau.webServiceResponse(null, "http://localhost/smartphone/pieceDataManager/pieces.php");
@@ -54,23 +32,13 @@ public class ListenNetwork extends Thread {
             } catch (InterruptedException ex) {
                 Logger.getLogger(ListenNetwork.class.getName()).log(Level.SEVERE, null, ex);
             }
-//            
-//            newDate = urlConn.getLastModified();
-//            System.out.println(String.valueOf(newDate));
-//            if (oldDate != newDate) {
-                newresult = Reseau.webServiceResponse(null, "http://localhost/smartphone/pieceDataManager/pieces.php");
-//                JSONArray array = new JSONArray();
-//                array.add(result);
-//                JSONObject json_data = array.getJSONObject(0);
-//                String piece = json_data.getString("piece");
-                if(!oldresult.equals(newresult))
-                {
-                JOptionPane.showMessageDialog(this.parent, "Demande de commande : " + newresult, "Commande", JOptionPane.INFORMATION_MESSAGE);
+            newresult = Reseau.webServiceResponse(null, "http://localhost/smartphone/pieceDataManager/pieces.php");
+
+            if (!oldresult.equals(newresult)) {
+                String[] split = newresult.split(":");
+                JOptionPane.showMessageDialog(this.parent, "Demande de commande : " + split[1].substring(3,split[1].length()-3), "Commande", JOptionPane.INFORMATION_MESSAGE);
                 oldresult = newresult;
-//                Reseau.clearFile("http://localhost/smartphone/pieceDataManager/pieces.php");
-                }
-                //                oldDate = newDate;
-//            }
+            }
         }
     }
 }
